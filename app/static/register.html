@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRA E-VAT API - Business Registration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .help-text {
+            font-size: 12px;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-register {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-register:active {
+            transform: translateY(0);
+        }
+
+        .btn-reset {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-reset:hover {
+            background: #e0e0e0;
+        }
+
+        .alert {
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .credentials-display {
+            display: none;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .credentials-display h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .credential-item {
+            margin-bottom: 15px;
+        }
+
+        .credential-label {
+            font-size: 12px;
+            color: #999;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .credential-value {
+            background: white;
+            padding: 10px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            word-break: break-all;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .copy-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 11px;
+            margin-left: 10px;
+        }
+
+        .copy-btn:hover {
+            background: #764ba2;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 5px;
+            padding: 12px;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #856404;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #999;
+            font-size: 12px;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🏛️ GRA E-VAT</div>
+            <h1>Business Registration</h1>
+            <p class="subtitle">Register your business to access the GRA E-VAT API</p>
+        </div>
+
+        <div id="alert" class="alert"></div>
+
+        <form id="registrationForm">
+            <div class="form-group">
+                <label for="businessName">Business Name *</label>
+                <input 
+                    type="text" 
+                    id="businessName" 
+                    name="businessName" 
+                    placeholder="e.g., ABC Company Ltd"
+                    required
+                >
+                <div class="help-text">Your registered business name</div>
+            </div>
+
+            <div class="form-group">
+                <label for="graTin">GRA TIN (Tax Identification Number) *</label>
+                <input 
+                    type="text" 
+                    id="graTin" 
+                    name="graTin" 
+                    placeholder="e.g., C00XXXXXXXX"
+                    minlength="11"
+                    maxlength="15"
+                    required
+                >
+                <div class="help-text">11 or 15 character TIN from GRA</div>
+            </div>
+
+            <div class="form-group">
+                <label for="graCompanyName">GRA Company Name *</label>
+                <input 
+                    type="text" 
+                    id="graCompanyName" 
+                    name="graCompanyName" 
+                    placeholder="e.g., ABC COMPANY LTD"
+                    required
+                >
+                <div class="help-text">Company name as registered with GRA</div>
+            </div>
+
+            <div class="form-group">
+                <label for="graSecurityKey">GRA Security Key *</label>
+                <input 
+                    type="password" 
+                    id="graSecurityKey" 
+                    name="graSecurityKey" 
+                    placeholder="Enter your GRA security key"
+                    required
+                >
+                <div class="help-text">Your GRA security key (will be encrypted)</div>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="btn-register">Register Business</button>
+                <button type="reset" class="btn-reset">Clear Form</button>
+            </div>
+        </form>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p style="margin-top: 10px; color: #666; font-size: 14px;">Processing registration...</p>
+        </div>
+
+        <div class="credentials-display" id="credentialsDisplay">
+            <h3>✅ Registration Successful!</h3>
+            <p style="color: #666; margin-bottom: 15px; font-size: 13px;">
+                Your API credentials have been generated. Store them securely.
+            </p>
+
+            <div class="credential-item">
+                <div class="credential-label">API Key</div>
+                <div class="credential-value">
+                    <span id="apiKeyValue" style="flex: 1; overflow: hidden; text-overflow: ellipsis;">-</span>
+                    <button type="button" class="copy-btn" onclick="copyToClipboard('apiKeyValue')">Copy</button>
+                </div>
+            </div>
+
+            <div class="credential-item">
+                <div class="credential-label">API Secret</div>
+                <div class="credential-value">
+                    <span id="apiSecretValue" style="flex: 1; overflow: hidden; text-overflow: ellipsis;">-</span>
+                    <button type="button" class="copy-btn" onclick="copyToClipboard('apiSecretValue')">Copy</button>
+                </div>
+            </div>
+
+            <div class="credential-item">
+                <div class="credential-label">Business ID</div>
+                <div class="credential-value">
+                    <span id="businessIdValue" style="flex: 1; overflow: hidden; text-overflow: ellipsis;">-</span>
+                    <button type="button" class="copy-btn" onclick="copyToClipboard('businessIdValue')">Copy</button>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                ⚠️ <strong>Important:</strong> Store your API Secret securely. You won't be able to retrieve it again. 
+                Use it to generate HMAC signatures for API requests.
+            </div>
+
+            <div class="button-group" style="margin-top: 20px;">
+                <button type="button" class="btn-register" onclick="downloadCredentials()">Download Credentials</button>
+                <button type="button" class="btn-reset" onclick="resetForm()">Register Another</button>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Need help? <a href="#" onclick="showHelp(); return false;">View Documentation</a></p>
+            <p style="margin-top: 10px;">© 2026 GRA E-VAT Integration API</p>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:8000/api/v1';
+
+        document.getElementById('registrationForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await registerBusiness();
+        });
+
+        async function registerBusiness() {
+            const businessName = document.getElementById('businessName').value;
+            const graTin = document.getElementById('graTin').value;
+            const graCompanyName = document.getElementById('graCompanyName').value;
+            const graSecurityKey = document.getElementById('graSecurityKey').value;
+
+            // Validate inputs
+            if (!businessName || !graTin || !graCompanyName || !graSecurityKey) {
+                showAlert('Please fill in all required fields', 'error');
+                return;
+            }
+
+            if (graTin.length < 11 || graTin.length > 15) {
+                showAlert('GRA TIN must be 11 or 15 characters', 'error');
+                return;
+            }
+
+            showLoading(true);
+            hideAlert();
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/api-keys/generate`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        business_name: businessName,
+                        gra_tin: graTin,
+                        gra_company_name: graCompanyName,
+                        gra_security_key: graSecurityKey
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.detail || 'Registration failed');
+                }
+
+                const data = await response.json();
+                displayCredentials(data);
+                showAlert('Registration successful! Your API credentials are ready.', 'success');
+
+            } catch (error) {
+                console.error('Registration error:', error);
+                showAlert(`Registration failed: ${error.message}`, 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        function displayCredentials(data) {
+            document.getElementById('apiKeyValue').textContent = data.api_key;
+            document.getElementById('apiSecretValue').textContent = data.api_secret;
+            document.getElementById('businessIdValue').textContent = data.business_id;
+
+            document.getElementById('registrationForm').style.display = 'none';
+            document.getElementById('credentialsDisplay').style.display = 'block';
+        }
+
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent;
+
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+                showAlert('Failed to copy to clipboard', 'error');
+            });
+        }
+
+        function downloadCredentials() {
+            const apiKey = document.getElementById('apiKeyValue').textContent;
+            const apiSecret = document.getElementById('apiSecretValue').textContent;
+            const businessId = document.getElementById('businessIdValue').textContent;
+            const businessName = document.getElementById('businessName').value;
+
+            const credentials = `GRA E-VAT API Credentials
+================================
+
+Business Name: ${businessName}
+Business ID: ${businessId}
+
+API Key: ${apiKey}
+API Secret: ${apiSecret}
+
+Generated: ${new Date().toLocaleString()}
+
+IMPORTANT: Store this file securely. Do not share your API Secret.
+
+For API documentation, visit: http://localhost:8000/api/docs
+`;
+
+            const blob = new Blob([credentials], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `gra-api-credentials-${businessId}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
+
+        function resetForm() {
+            document.getElementById('registrationForm').reset();
+            document.getElementById('registrationForm').style.display = 'block';
+            document.getElementById('credentialsDisplay').style.display = 'none';
+            hideAlert();
+        }
+
+        function showAlert(message, type) {
+            const alert = document.getElementById('alert');
+            alert.textContent = message;
+            alert.className = `alert alert-${type}`;
+            alert.style.display = 'block';
+        }
+
+        function hideAlert() {
+            document.getElementById('alert').style.display = 'none';
+        }
+
+        function showLoading(show) {
+            document.getElementById('loading').style.display = show ? 'block' : 'none';
+        }
+
+        function showHelp() {
+            alert(`GRA E-VAT API Registration Help
+
+1. Business Name: Your company's registered name
+2. GRA TIN: Your Tax Identification Number (11-15 chars)
+3. GRA Company Name: Name as registered with GRA
+4. GRA Security Key: Your GRA security key
+
+After registration, you'll receive:
+- API Key: Use in X-API-Key header
+- API Secret: Use to generate HMAC signatures
+- Business ID: Your unique identifier
+
+For full documentation, visit: http://localhost:8000/api/docs`);
+        }
+    </script>
+</body>
+</html>

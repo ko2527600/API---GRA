@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRA API Comprehensive Tester</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .header h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 10px 20px;
+            border: none;
+            background: white;
+            color: #333;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .tab-button.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .tab-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .card h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 18px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+            font-size: 13px;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+        
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+        
+        .response-section {
+            margin-top: 20px;
+        }
+        
+        .response-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .response-body {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .message-box {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-weight: 500;
+            display: none;
+        }
+
+        .message-box.show {
+            display: block;
+        }
+
+        .message-success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .message-error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .message-info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-size: 13px;
+            color: #0c5aa0;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .tab-content.active {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 GRA External Integration API Tester</h1>
+            <p>Comprehensive API Testing Suite - Test all endpoints</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="switchTab('purchase-cancel')">Purchase Cancel</button>
+            <button class="tab-button" onclick="switchTab('purchase-submit')">Purchase Submit</button>
+            <button class="tab-button" onclick="switchTab('health')">Health Check</button>
+        </div>
+
+        <!-- Purchase Cancel Tab -->
+        <div id="purchase-cancel" class="tab-content active">
+            <div class="card">
+                <h2>📤 Purchase Cancellation Request</h2>
+                
+                <div class="info-box">
+                    <strong>Endpoint:</strong> POST /api/v1/purchases/cancel<br>
+                    <strong>Expected Status:</strong> 202 Accepted
+                </div>
+                
+                <div class="form-group">
+                    <label>Company Name</label>
+                    <input type="text" id="cancel-companyName" value="ABC COMPANY LTD" placeholder="Company name">
+                </div>
+                
+                <div class="form-group">
+                    <label>Company TIN</label>
+                    <input type="text" id="cancel-companyTin" value="C00XXXXXXXX" placeholder="Company TIN">
+                </div>
+                
+                <div class="form-group">
+                    <label>Company Security Key</label>
+                    <input type="text" id="cancel-securityKey" value="UUAKE3NVOTLRMQWCVUDIPOUT395KTCTH" placeholder="Security key">
+                </div>
+                
+                <div class="form-group">
+                    <label>Purchase Number to Cancel</label>
+                    <input type="text" id="cancel-purchaseNum" value="PUR-2026-001" placeholder="e.g., PUR-2026-001">
+                </div>
+                
+                <div class="form-group">
+                    <label>Purchase Date (YYYY-MM-DD)</label>
+                    <input type="text" id="cancel-purchaseDate" value="2026-02-11" placeholder="2026-02-11">
+                </div>
+                
+                <div class="form-group">
+                    <label>API Key</label>
+                    <input type="text" id="cancel-apiKey" value="qee1UeuqIjgpcBQRuPkjLv6fUhX5zZFe" placeholder="Your API Key">
+                </div>
+                
+                <div class="form-group">
+                    <label>API Secret</label>
+                    <input type="text" id="cancel-apiSecret" value="DAS5qwFHw6czuPL1bqwPtbI1EiilHvoI" placeholder="Your API Secret">
+                </div>
+                
+                <div class="button-group">
+                    <button class="btn-primary" onclick="testPurchaseCancel()">Send Request</button>
+                    <button class="btn-secondary" onclick="clearTab('cancel')">Clear</button>
+                </div>
+                
+                <div class="loading" id="cancel-loading">
+                    <div class="spinner"></div>
+                    <p>Sending request...</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>📥 Response</h2>
+                
+                <div class="message-box" id="cancel-message"></div>
+                
+                <div class="response-section">
+                    <div class="response-header">
+                        <strong>Status:</strong>
+                        <span class="status-badge status-pending" id="cancel-statusBadge">Waiting...</span>
+                    </div>
+                    <div class="response-body" id="cancel-responseBody">
+No response yet. Click "Send Request" to test the API.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Purchase Submit Tab -->
+        <div id="purchase-submit" class="tab-content">
+            <div class="card">
+                <h2>📤 Purchase Submission Request</h2>
+                
+                <div class="info-box">
+                    <strong>Endpoint:</strong> POST /api/v1/purchases/submit<br>
+                    <strong>Expected Status:</strong> 202 Accepted
+                </div>
+                
+                <div class="form-group">
+                    <label>Company Name</label>
+                    <input type="text" id="submit-companyName" value="ABC COMPANY LTD" placeholder="Company name">
+                </div>
+                
+                <div class="form-group">
+                    <label>Company TIN</label>
+                    <input type="text" id="submit-companyTin" value="C00XXXXXXXX" placeholder="Company TIN">
+                </div>
+                
+                <div class="form-group">
+                    <label>Company Security Key</label>
+                    <input type="text" id="submit-securityKey" value="UUAKE3NVOTLRMQWCVUDIPOUT395KTCTH" placeholder="Security key">
+                </div>
+                
+                <div class="form-group">
+                    <label>API Key</label>
+                    <input type="text" id="submit-apiKey" value="qee1UeuqIjgpcBQRuPkjLv6fUhX5zZFe" placeholder="Your API Key">
+                </div>
+                
+                <div class="form-group">
+                    <label>API Secret</label>
+                    <input type="text" id="submit-apiSecret" value="DAS5qwFHw6czuPL1bqwPtbI1EiilHvoI" placeholder="Your API Secret">
+                </div>
+                
+                <div class="button-group">
+                    <button class="btn-primary" onclick="testPurchaseSubmit()">Send Request</button>
+                    <button class="btn-secondary" onclick="clearTab('submit')">Clear</button>
+                </div>
+                
+                <div class="loading" id="submit-loading">
+                    <div class="spinner"></div>
+                    <p>Sending request...</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>📥 Response</h2>
+                
+                <div class="message-box" id="submit-message"></div>
+                
+                <div class="response-section">
+                    <div class="response-header">
+                        <strong>Status:</strong>
+                        <span class="status-badge status-pending" id="submit-statusBadge">Waiting...</span>
+                    </div>
+                    <div class="response-body" id="submit-responseBody">
+No response yet. Click "Send Request" to test the API.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Health Check Tab -->
+        <div id="health" class="tab-content">
+            <div class="card">
+                <h2>📤 Health Check Request</h2>
+                
+                <div class="info-box">
+                    <strong>Endpoint:</strong> GET /health<br>
+                    <strong>Expected Status:</strong> 200 OK
+                </div>
+                
+                <p style="margin-bottom: 20px; color: #666;">No parameters needed for health check.</p>
+                
+                <div class="button-group">
+                    <button class="btn-primary" onclick="testHealth()">Send Request</button>
+                    <button class="btn-secondary" onclick="clearTab('health')">Clear</button>
+                </div>
+                
+                <div class="loading" id="health-loading">
+                    <div class="spinner"></div>
+                    <p>Sending request...</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>📥 Response</h2>
+                
+                <div class="message-box" id="health-message"></div>
+                
+                <div class="response-section">
+                    <div class="response-header">
+                        <strong>Status:</strong>
+                        <span class="status-badge status-pending" id="health-statusBadge">Waiting...</span>
+                    </div>
+                    <div class="response-body" id="health-responseBody">
+No response yet. Click "Send Request" to test the API.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+
+        function showMessage(prefix, message, type = 'info') {
+            const messageBox = document.getElementById(`${prefix}-message`);
+            messageBox.textContent = message;
+            messageBox.className = `message-box show message-${type}`;
+        }
+
+        function hideMessage(prefix) {
+            const messageBox = document.getElementById(`${prefix}-message`);
+            messageBox.classList.remove('show');
+        }
+
+        function updateStatus(prefix, status, statusText) {
+            const badge = document.getElementById(`${prefix}-statusBadge`);
+            badge.textContent = statusText;
+            
+            if (status === 202 || status === 200) {
+                badge.className = 'status-badge status-success';
+            } else if (status >= 400) {
+                badge.className = 'status-badge status-error';
+            } else {
+                badge.className = 'status-badge status-pending';
+            }
+        }
+
+        async function generateSignature(message, secret) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(message);
+            const key = encoder.encode(secret);
+            
+            const cryptoKey = await crypto.subtle.importKey(
+                'raw',
+                key,
+                { name: 'HMAC', hash: 'SHA-256' },
+                false,
+                ['sign']
+            );
+            
+            const signature = await crypto.subtle.sign('HMAC', cryptoKey, data);
+            const hashArray = Array.from(new Uint8Array(signature));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            
+            return hashHex;
+        }
+
+        async function testPurchaseCancel() {
+            const prefix = 'cancel';
+            const loading = document.getElementById(`${prefix}-loading`);
+            const responseBody = document.getElementById(`${prefix}-responseBody`);
+            
+            loading.style.display = 'block';
+            hideMessage(prefix);
+            
+            try {
+                const payload = {
+                    company: {
+                        COMPANY_NAMES: document.getElementById(`${prefix}-companyName`).value,
+                        COMPANY_TIN: document.getElementById(`${prefix}-companyTin`).value,
+                        COMPANY_SECURITY_KEY: document.getElementById(`${prefix}-securityKey`).value
+                    },
+                    header: {
+                        FLAG: "CANCEL",
+                        NUM: document.getElementById(`${prefix}-purchaseNum`).value,
+                        PURCHASE_DATE: document.getElementById(`${prefix}-purchaseDate`).value,
+                        CURRENCY: "GHS",
+                        EXCHANGE_RATE: "1"
+                    }
+                };
+                
+                const requestBody = JSON.stringify(payload);
+                const apiSecret = document.getElementById(`${prefix}-apiSecret`).value;
+                const signature = await generateSignature(requestBody, apiSecret);
+                
+                const response = await fetch('http://localhost:8000/api/v1/purchases/cancel', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': document.getElementById(`${prefix}-apiKey`).value,
+                        'X-API-Signature': signature
+                    },
+                    body: requestBody
+                });
+                
+                let data;
+                try {
+                    data = await response.json();
+                } catch (e) {
+                    data = { error: 'Could not parse response' };
+                }
+                
+                loading.style.display = 'none';
+                responseBody.textContent = JSON.stringify(data, null, 2);
+                
+                if (response.status === 202) {
+                    updateStatus(prefix, 202, '✓ 202 Accepted');
+                    const message = data.message || 'Purchase cancellation submitted successfully!';
+                    showMessage(prefix, `✓ ${message}`, 'success');
+                } else if (response.status >= 400) {
+                    updateStatus(prefix, response.status, `✗ ${response.status} Error`);
+                    const errorMsg = data.detail || data.message || 'Request failed';
+                    showMessage(prefix, `✗ Error: ${errorMsg}`, 'error');
+                } else {
+                    updateStatus(prefix, response.status, `${response.status}`);
+                }
+                
+            } catch (error) {
+                loading.style.display = 'none';
+                responseBody.textContent = `Error: ${error.message}\n\nMake sure the API server is running on http://localhost:8000`;
+                updateStatus(prefix, 0, '✗ Connection Error');
+                showMessage(prefix, `✗ Connection Error: ${error.message}`, 'error');
+            }
+        }
+
+        async function testPurchaseSubmit() {
+            const prefix = 'submit';
+            const loading = document.getElementById(`${prefix}-loading`);
+            const responseBody = document.getElementById(`${prefix}-responseBody`);
+            
+            loading.style.display = 'block';
+            hideMessage(prefix);
+            
+            try {
+                // Generate unique purchase number with timestamp
+                const timestamp = Date.now();
+                const uniquePurchaseNum = `PUR-${timestamp}`;
+                
+                const payload = {
+                    company: {
+                        COMPANY_NAMES: document.getElementById(`${prefix}-companyName`).value,
+                        COMPANY_TIN: document.getElementById(`${prefix}-companyTin`).value,
+                        COMPANY_SECURITY_KEY: document.getElementById(`${prefix}-securityKey`).value
+                    },
+                    header: {
+                        COMPUTATION_TYPE: "INCLUSIVE",
+                        FLAG: "PURCHASE",
+                        PURCHASE_TYPE: "NORMAL",
+                        USER_NAME: "JOHN",
+                        NUM: uniquePurchaseNum,
+                        SUPPLIER_NAME: "Supplier Ltd",
+                        SUPPLIER_TIN: "C0022825405",
+                        PURCHASE_DATE: "2026-02-11",
+                        CURRENCY: "GHS",
+                        EXCHANGE_RATE: "1",
+                        PURCHASE_DESCRIPTION: "Office supplies purchase",
+                        TOTAL_VAT: "79",
+                        TOTAL_LEVY: "30",
+                        TOTAL_AMOUNT: "1719",
+                        ITEMS_COUNTS: "1"
+                    },
+                    item_list: [
+                        {
+                            ITMREF: "SUPP001",
+                            ITMDES: "Office Supplies",
+                            QUANTITY: "5",
+                            UNITYPRICE: "100",
+                            TAXCODE: "B",
+                            TAXRATE: "15",
+                            LEVY_AMOUNT_A: "1.25",
+                            LEVY_AMOUNT_B: "1.25",
+                            LEVY_AMOUNT_C: "0",
+                            LEVY_AMOUNT_D: "0"
+                        }
+                    ]
+                };
+                
+                const requestBody = JSON.stringify(payload);
+                const apiSecret = document.getElementById(`${prefix}-apiSecret`).value;
+                const signature = await generateSignature(requestBody, apiSecret);
+                
+                const response = await fetch('http://localhost:8000/api/v1/purchases/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': document.getElementById(`${prefix}-apiKey`).value,
+                        'X-API-Signature': signature
+                    },
+                    body: requestBody
+                });
+                
+                let data;
+                try {
+                    data = await response.json();
+                } catch (e) {
+                    data = { error: 'Could not parse response' };
+                }
+                
+                loading.style.display = 'none';
+                responseBody.textContent = JSON.stringify(data, null, 2);
+                
+                if (response.status === 202) {
+                    updateStatus(prefix, 202, '✓ 202 Accepted');
+                    const message = data.message || 'Purchase submitted successfully!';
+                    showMessage(prefix, `✓ ${message}`, 'success');
+                } else if (response.status >= 400) {
+                    updateStatus(prefix, response.status, `✗ ${response.status} Error`);
+                    const errorMsg = data.detail || data.message || 'Request failed';
+                    showMessage(prefix, `✗ Error: ${errorMsg}`, 'error');
+                } else {
+                    updateStatus(prefix, response.status, `${response.status}`);
+                }
+                
+            } catch (error) {
+                loading.style.display = 'none';
+                responseBody.textContent = `Error: ${error.message}\n\nMake sure the API server is running on http://localhost:8000`;
+                updateStatus(prefix, 0, '✗ Connection Error');
+                showMessage(prefix, `✗ Connection Error: ${error.message}`, 'error');
+            }
+        }
+
+        async function testHealth() {
+            const prefix = 'health';
+            const loading = document.getElementById(`${prefix}-loading`);
+            const responseBody = document.getElementById(`${prefix}-responseBody`);
+            
+            loading.style.display = 'block';
+            hideMessage(prefix);
+            
+            try {
+                const response = await fetch('http://localhost:8000/health', {
+                    method: 'GET'
+                });
+                
+                let data;
+                try {
+                    data = await response.json();
+                } catch (e) {
+                    data = { error: 'Could not parse response' };
+                }
+                
+                loading.style.display = 'none';
+                responseBody.textContent = JSON.stringify(data, null, 2);
+                
+                if (response.status === 200) {
+                    updateStatus(prefix, 200, '✓ 200 OK');
+                    showMessage(prefix, '✓ API is healthy and running!', 'success');
+                } else if (response.status >= 400) {
+                    updateStatus(prefix, response.status, `✗ ${response.status} Error`);
+                    showMessage(prefix, `✗ Error: ${response.status}`, 'error');
+                } else {
+                    updateStatus(prefix, response.status, `${response.status}`);
+                }
+                
+            } catch (error) {
+                loading.style.display = 'none';
+                responseBody.textContent = `Error: ${error.message}\n\nMake sure the API server is running on http://localhost:8000`;
+                updateStatus(prefix, 0, '✗ Connection Error');
+                showMessage(prefix, `✗ Connection Error: ${error.message}`, 'error');
+            }
+        }
+
+        function clearTab(tabName) {
+            if (tabName === 'cancel') {
+                document.getElementById('cancel-responseBody').textContent = 'No response yet. Click "Send Request" to test the API.';
+                document.getElementById('cancel-statusBadge').textContent = 'Waiting...';
+                document.getElementById('cancel-statusBadge').className = 'status-badge status-pending';
+                hideMessage('cancel');
+            } else if (tabName === 'submit') {
+                document.getElementById('submit-responseBody').textContent = 'No response yet. Click "Send Request" to test the API.';
+                document.getElementById('submit-statusBadge').textContent = 'Waiting...';
+                document.getElementById('submit-statusBadge').className = 'status-badge status-pending';
+                hideMessage('submit');
+            } else if (tabName === 'health') {
+                document.getElementById('health-responseBody').textContent = 'No response yet. Click "Send Request" to test the API.';
+                document.getElementById('health-statusBadge').textContent = 'Waiting...';
+                document.getElementById('health-statusBadge').className = 'status-badge status-pending';
+                hideMessage('health');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+# file: C:\Dev\01-Work\API's\app\utils\gra_error_codes.py
+# hypothesis_version: 6.150.1
+
+['0', '0.01', '15', '3', 'A', 'B', 'C', 'Client name missing', 'Code missing', 'D', 'Description missing', 'E', 'GHS', 'Internal error', 'Invalid TIN number', 'Invalid discount', 'Invalid tax code', 'Invalid tax rate', 'Invalid unit price', 'Item count mismatch', 'Negative sale price', 'Quantity is negative', 'Quantity missing', 'T04: TIN stopped', 'T05: TIN protected', 'TIN number not found', 'TIN protected', 'TIN stopped', 'Total VAT mismatch', 'Wrong currency']

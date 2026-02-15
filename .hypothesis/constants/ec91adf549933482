@@ -1,0 +1,4 @@
+# file: C:\Dev\01-Work\API's\app\utils\business_logic_validator.py
+# hypothesis_version: 6.150.1
+
+['%Y-%m-%d', '0', '0.01', '1', '15', '3', 'A', 'A05', 'A06', 'A07', 'A08', 'A09', 'B', 'B05', 'B051', 'B11', 'B12', 'B15', 'B16', 'B18', 'B19', 'B21', 'B31', 'B32', 'B34', 'B35', 'B70', 'C', 'CLIENT_NAME', 'CLIENT_TIN', 'COMPUTATION_TYPE', 'CURRENCY', 'D', 'DISCOUNT_AMOUNT', 'E', 'EXCHANGE_RATE', 'EXCLUSIVE', 'FLAG', 'GHS', 'INCLUSIVE', 'INVOICE', 'INVOICE_DATE', 'ITEMS_COUNTS', 'ITMDISCOUNT', 'LEVY_AMOUNT_A', 'LEVY_AMOUNT_B', 'LEVY_AMOUNT_C', 'LEVY_AMOUNT_D', 'PARTIAL_REFUND', 'PROFORMA', 'PURCHASE', 'QUANTITY', 'REFUND', 'REFUND_ID', 'TAXCODE', 'TAXRATE', 'TOTAL_AMOUNT', 'TOTAL_LEVY', 'TOTAL_VAT', 'UNITYPRICE', 'error_code', 'field', 'header', 'item_total', 'items', 'message', 'totals', 'vat']

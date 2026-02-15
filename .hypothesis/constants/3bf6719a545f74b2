@@ -1,0 +1,4 @@
+# file: C:\Dev\01-Work\API's\app\utils\tax_calculator.py
+# hypothesis_version: 6.150.1
+
+[100, '0', '0.01', '1.0', '15', '2.5', '3', 'A', 'B', 'C', 'D', 'E', 'EXCLUSIVE', 'INCLUSIVE', 'item_total', 'levy_a', 'levy_b', 'levy_c', 'levy_d', 'total_levies', 'vat']
