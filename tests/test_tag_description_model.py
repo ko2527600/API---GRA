@@ -3,7 +3,7 @@ import pytest
 from datetime import datetime
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from unittest.mock import patch
+
 
 
 def create_test_db():
@@ -14,13 +14,11 @@ def create_test_db():
     return engine, sessionmaker(bind=engine)
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_tag_description_creation(mock_hash):
+def test_tag_description_creation():
     """Test creating a tag description"""
     from app.models.models import TagDescription
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -49,13 +47,11 @@ def test_tag_description_creation(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_tag_description_without_category(mock_hash):
+def test_tag_description_without_category():
     """Test tag description creation without category (optional field)"""
     from app.models.models import TagDescription
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -81,14 +77,12 @@ def test_tag_description_without_category(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_tag_description_unique_constraint_per_business(mock_hash):
+def test_tag_description_unique_constraint_per_business():
     """Test tag_code is unique per business"""
     from app.models.models import TagDescription
     from app.services.business_service import BusinessService
     from sqlalchemy.exc import IntegrityError
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -123,13 +117,11 @@ def test_tag_description_unique_constraint_per_business(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_tag_description_same_code_different_businesses(mock_hash):
+def test_tag_description_same_code_different_businesses():
     """Test same tag_code can exist in different businesses"""
     from app.models.models import TagDescription
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -172,13 +164,11 @@ def test_tag_description_same_code_different_businesses(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_tag_description_with_long_description(mock_hash):
+def test_tag_description_with_long_description():
     """Test tag description with long text"""
     from app.models.models import TagDescription
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -206,13 +196,11 @@ def test_tag_description_with_long_description(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_tag_description_timestamps(mock_hash):
+def test_tag_description_timestamps():
     """Test tag description has created_at and updated_at timestamps"""
     from app.models.models import TagDescription
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -241,13 +229,11 @@ def test_tag_description_timestamps(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_query_tag_descriptions_by_business(mock_hash):
+def test_query_tag_descriptions_by_business():
     """Test querying tag descriptions by business"""
     from app.models.models import TagDescription
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -295,13 +281,11 @@ def test_query_tag_descriptions_by_business(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_tag_description_relationship_with_business(mock_hash):
+def test_tag_description_relationship_with_business():
     """Test tag description relationship with business"""
     from app.models.models import TagDescription
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -339,13 +323,11 @@ def test_tag_description_relationship_with_business(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_tag_description_cascade_delete_with_business(mock_hash):
+def test_tag_description_cascade_delete_with_business():
     """Test that deleting business cascades to delete tag descriptions"""
     from app.models.models import TagDescription
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -386,13 +368,11 @@ def test_tag_description_cascade_delete_with_business(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_tag_description_multiple_categories(mock_hash):
+def test_tag_description_multiple_categories():
     """Test tag descriptions with different categories"""
     from app.models.models import TagDescription
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -425,13 +405,11 @@ def test_tag_description_multiple_categories(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_tag_description_query_by_tag_code(mock_hash):
+def test_tag_description_query_by_tag_code():
     """Test querying tag description by tag code"""
     from app.models.models import TagDescription
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -464,13 +442,11 @@ def test_tag_description_query_by_tag_code(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_tag_description_update(mock_hash):
+def test_tag_description_update():
     """Test updating tag description"""
     from app.models.models import TagDescription
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -502,3 +478,4 @@ def test_tag_description_update(mock_hash):
         assert updated_tag.category == "CATEGORY_B"
     finally:
         db.close()
+

@@ -1,0 +1,4 @@
+# file: C:\Dev\01-Work\API's\app\services\backup_scheduler.py
+# hypothesis_version: 6.151.6
+
+[365, 'Audit Log Retention', 'Backup Cleanup', 'audit_log_retention', 'backup_cleanup', 'daily_backup', 'enabled', 'id', 'jobs', 'name', 'next_run_time', 'running', 'sun']

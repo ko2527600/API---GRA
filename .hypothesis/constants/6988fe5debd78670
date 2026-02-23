@@ -1,0 +1,4 @@
+# file: C:\Dev\01-Work\API's\app\database.py
+# hypothesis_version: 6.151.6
+
+['application_name', 'check_same_thread', 'connect', 'connect_args', 'connect_timeout', 'echo', 'gra_api', 'max_overflow', 'pool_size', 'poolclass', 'postgres', 'postgresql', 'sqlite']

@@ -41,7 +41,6 @@ class BusinessService:
         try:
             # Generate API credentials
             api_key, api_secret = APIKeyService.generate_credentials()
-            hashed_secret = APIKeyService.hash_api_secret(api_secret)
             
             # Encrypt sensitive GRA data
             encrypted_tin = encryption_manager.encrypt(gra_tin)
@@ -49,11 +48,13 @@ class BusinessService:
             encrypted_security_key = encryption_manager.encrypt(gra_security_key)
             
             # Create business record
+            # Note: api_secret is stored in plain text because it's needed for HMAC signature verification
+            # The api_secret should be treated as sensitive and only shown once to the user
             business = Business(
                 id=uuid.uuid4(),
                 name=business_name,
                 api_key=api_key,
-                api_secret=hashed_secret,
+                api_secret=api_secret,
                 gra_tin=encrypted_tin,
                 gra_company_name=encrypted_company_name,
                 gra_security_key=encrypted_security_key,
@@ -123,7 +124,8 @@ class BusinessService:
         if not business:
             return None
         
-        if not APIKeyService.verify_api_secret(api_secret, business.api_secret):
+        # Direct comparison since api_secret is stored in plain text
+        if api_secret != business.api_secret:
             return None
         
         return business

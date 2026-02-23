@@ -1,0 +1,4 @@
+# file: C:\Dev\01-Work\API's\app\services\secrets_manager.py
+# hypothesis_version: 6.151.6
+
+['Manual revocation', 'RETRIEVE_CREDENTIALS', 'REVOKE_CREDENTIALS', 'ROTATE_CREDENTIALS', 'STORE_CREDENTIALS', 'action', 'active', 'business_active', 'business_id', 'business_name', 'checks', 'created_at', 'credentials_stored', 'gAAAAAB', 'gra_company_name', 'gra_security_key', 'gra_tin', 'gra_tin_encrypted', 'inactive', 'invalid', 'reason', 'revoked', 'revoked_at', 'rotated_at', 'status', 'stored_at', 'success', 'updated_at', 'valid', 'version']

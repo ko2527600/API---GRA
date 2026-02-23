@@ -3,7 +3,7 @@ import pytest
 from datetime import datetime, timedelta
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from unittest.mock import patch
+
 
 
 def create_test_db():
@@ -14,13 +14,11 @@ def create_test_db():
     return engine, sessionmaker(bind=engine)
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_inventory_creation(mock_hash):
+def test_inventory_creation():
     """Test creating an inventory record"""
     from app.models.models import Inventory, Item
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -62,14 +60,12 @@ def test_inventory_creation(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_inventory_unique_niki_code_per_business(mock_hash):
+def test_inventory_unique_niki_code_per_business():
     """Test niki_code is unique per business"""
     from app.models.models import Inventory, Item
     from app.services.business_service import BusinessService
     from sqlalchemy.exc import IntegrityError
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -126,13 +122,11 @@ def test_inventory_unique_niki_code_per_business(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_inventory_same_niki_code_different_businesses(mock_hash):
+def test_inventory_same_niki_code_different_businesses():
     """Test same niki_code can exist in different businesses"""
     from app.models.models import Inventory, Item
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -197,13 +191,11 @@ def test_inventory_same_niki_code_different_businesses(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_inventory_quantity_values(mock_hash):
+def test_inventory_quantity_values():
     """Test inventory with various quantity values"""
     from app.models.models import Inventory, Item
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -248,13 +240,11 @@ def test_inventory_quantity_values(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_inventory_gra_sync_status_values(mock_hash):
+def test_inventory_gra_sync_status_values():
     """Test different GRA sync status values"""
     from app.models.models import Inventory, Item
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -299,13 +289,11 @@ def test_inventory_gra_sync_status_values(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_inventory_last_updated_timestamp(mock_hash):
+def test_inventory_last_updated_timestamp():
     """Test inventory last_updated timestamp"""
     from app.models.models import Inventory, Item
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -347,13 +335,11 @@ def test_inventory_last_updated_timestamp(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_inventory_timestamps(mock_hash):
+def test_inventory_timestamps():
     """Test inventory has created_at and updated_at timestamps"""
     from app.models.models import Inventory, Item
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -394,13 +380,11 @@ def test_inventory_timestamps(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_inventory_relationship_with_item(mock_hash):
+def test_inventory_relationship_with_item():
     """Test inventory relationship with item"""
     from app.models.models import Inventory, Item
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -451,13 +435,11 @@ def test_inventory_relationship_with_item(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_query_inventory_by_business(mock_hash):
+def test_query_inventory_by_business():
     """Test querying inventory by business"""
     from app.models.models import Inventory, Item
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -527,13 +509,11 @@ def test_query_inventory_by_business(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_inventory_item_relationship_integrity(mock_hash):
+def test_inventory_item_relationship_integrity():
     """Test that inventory maintains referential integrity with item"""
     from app.models.models import Inventory, Item
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -585,13 +565,11 @@ def test_inventory_item_relationship_integrity(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_inventory_multiple_items_per_business(mock_hash):
+def test_inventory_multiple_items_per_business():
     """Test multiple inventory records for different items in same business"""
     from app.models.models import Inventory, Item
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -639,13 +617,11 @@ def test_inventory_multiple_items_per_business(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_inventory_update_quantity(mock_hash):
+def test_inventory_update_quantity():
     """Test updating inventory quantity"""
     from app.models.models import Inventory, Item
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -689,13 +665,11 @@ def test_inventory_update_quantity(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_inventory_update_sync_status(mock_hash):
+def test_inventory_update_sync_status():
     """Test updating inventory GRA sync status"""
     from app.models.models import Inventory, Item
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -737,3 +711,4 @@ def test_inventory_update_sync_status(mock_hash):
         assert updated_inventory.gra_sync_status == "SUCCESS"
     finally:
         db.close()
+

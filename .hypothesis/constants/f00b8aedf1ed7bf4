@@ -1,0 +1,4 @@
+# file: C:\Dev\01-Work\API's\app\utils\hmac_signature.py
+# hypothesis_version: 6.151.6
+
+[300, '+00:00', 'Z', 'body_hash', 'message', 'timestamp']

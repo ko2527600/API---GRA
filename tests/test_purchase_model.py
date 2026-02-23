@@ -3,7 +3,7 @@ import pytest
 from datetime import datetime
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from unittest.mock import patch
+
 
 
 def create_test_db():
@@ -14,13 +14,11 @@ def create_test_db():
     return engine, sessionmaker(bind=engine)
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_purchase_creation(mock_hash):
+def test_purchase_creation():
     """Test creating a purchase"""
     from app.models.models import Purchase, Submission, SubmissionType
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -64,13 +62,11 @@ def test_purchase_creation(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_purchase_with_supplier_tin(mock_hash):
+def test_purchase_with_supplier_tin():
     """Test purchase with supplier TIN"""
     from app.models.models import Purchase, Submission, SubmissionType
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -111,13 +107,11 @@ def test_purchase_with_supplier_tin(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_purchase_with_line_items(mock_hash):
+def test_purchase_with_line_items():
     """Test purchase with multiple line items"""
     from app.models.models import Purchase, PurchaseItem, Submission, SubmissionType
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -185,13 +179,11 @@ def test_purchase_with_line_items(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_purchase_item_creation(mock_hash):
+def test_purchase_item_creation():
     """Test creating a purchase item"""
     from app.models.models import Purchase, PurchaseItem, Submission, SubmissionType
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -248,13 +240,11 @@ def test_purchase_item_creation(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_purchase_item_different_tax_codes(mock_hash):
+def test_purchase_item_different_tax_codes():
     """Test purchase items with different tax codes"""
     from app.models.models import Purchase, PurchaseItem, Submission, SubmissionType
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -337,13 +327,11 @@ def test_purchase_item_different_tax_codes(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_purchase_timestamps(mock_hash):
+def test_purchase_timestamps():
     """Test purchase has created_at and updated_at timestamps"""
     from app.models.models import Purchase, Submission, SubmissionType
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -385,14 +373,12 @@ def test_purchase_timestamps(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_purchase_unique_constraint(mock_hash):
+def test_purchase_unique_constraint():
     """Test purchase number is unique per business"""
     from app.models.models import Purchase, Submission, SubmissionType
     from app.services.business_service import BusinessService
     from sqlalchemy.exc import IntegrityError
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -453,13 +439,11 @@ def test_purchase_unique_constraint(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_purchase_cascade_delete_items(mock_hash):
+def test_purchase_cascade_delete_items():
     """Test that deleting purchase cascades to delete items"""
     from app.models.models import Purchase, PurchaseItem, Submission, SubmissionType
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -534,13 +518,11 @@ def test_purchase_cascade_delete_items(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_query_purchases_by_business(mock_hash):
+def test_query_purchases_by_business():
     """Test querying purchases by business"""
     from app.models.models import Purchase, Submission, SubmissionType
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -612,3 +594,4 @@ def test_query_purchases_by_business(mock_hash):
         assert len(business2_purchases) == 2
     finally:
         db.close()
+

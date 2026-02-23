@@ -3,7 +3,7 @@ import pytest
 from datetime import datetime, timedelta
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from unittest.mock import patch
+
 
 
 def create_test_db():
@@ -14,13 +14,11 @@ def create_test_db():
     return engine, sessionmaker(bind=engine)
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_tin_validation_creation(mock_hash):
+def test_tin_validation_creation():
     """Test creating a TIN validation cache record"""
     from app.models.models import TINValidation
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -53,13 +51,11 @@ def test_tin_validation_creation(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_tin_validation_all_status_values(mock_hash):
+def test_tin_validation_all_status_values():
     """Test all TIN validation status values"""
     from app.models.models import TINValidation
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -96,14 +92,12 @@ def test_tin_validation_all_status_values(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_tin_validation_unique_per_business(mock_hash):
+def test_tin_validation_unique_per_business():
     """Test TIN is unique per business"""
     from app.models.models import TINValidation
     from app.services.business_service import BusinessService
     from sqlalchemy.exc import IntegrityError
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -144,13 +138,11 @@ def test_tin_validation_unique_per_business(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_tin_validation_same_tin_different_businesses(mock_hash):
+def test_tin_validation_same_tin_different_businesses():
     """Test same TIN can exist in different businesses"""
     from app.models.models import TINValidation
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -199,13 +191,11 @@ def test_tin_validation_same_tin_different_businesses(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_tin_validation_cache_expiration(mock_hash):
+def test_tin_validation_cache_expiration():
     """Test TIN validation cache expiration time"""
     from app.models.models import TINValidation
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -236,13 +226,11 @@ def test_tin_validation_cache_expiration(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_tin_validation_cached_at_timestamp(mock_hash):
+def test_tin_validation_cached_at_timestamp():
     """Test TIN validation cached_at timestamp"""
     from app.models.models import TINValidation
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -275,13 +263,11 @@ def test_tin_validation_cached_at_timestamp(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_tin_validation_timestamps(mock_hash):
+def test_tin_validation_timestamps():
     """Test TIN validation has created_at and updated_at timestamps"""
     from app.models.models import TINValidation
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -313,13 +299,11 @@ def test_tin_validation_timestamps(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_tin_validation_gra_response_code(mock_hash):
+def test_tin_validation_gra_response_code():
     """Test TIN validation with GRA response code"""
     from app.models.models import TINValidation
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -363,13 +347,11 @@ def test_tin_validation_gra_response_code(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_tin_validation_taxpayer_name_optional(mock_hash):
+def test_tin_validation_taxpayer_name_optional():
     """Test taxpayer_name is optional"""
     from app.models.models import TINValidation
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -413,13 +395,11 @@ def test_tin_validation_taxpayer_name_optional(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_tin_validation_query_by_business(mock_hash):
+def test_tin_validation_query_by_business():
     """Test querying TIN validations by business"""
     from app.models.models import TINValidation
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -473,13 +453,11 @@ def test_tin_validation_query_by_business(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_tin_validation_query_by_tin(mock_hash):
+def test_tin_validation_query_by_tin():
     """Test querying TIN validation by TIN"""
     from app.models.models import TINValidation
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -512,13 +490,11 @@ def test_tin_validation_query_by_tin(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_tin_validation_query_expired(mock_hash):
+def test_tin_validation_query_expired():
     """Test querying expired TIN validations"""
     from app.models.models import TINValidation
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -568,13 +544,11 @@ def test_tin_validation_query_expired(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_tin_validation_update_status(mock_hash):
+def test_tin_validation_update_status():
     """Test updating TIN validation status"""
     from app.models.models import TINValidation
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -609,13 +583,11 @@ def test_tin_validation_update_status(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_tin_validation_update_expiration(mock_hash):
+def test_tin_validation_update_expiration():
     """Test updating TIN validation expiration time"""
     from app.models.models import TINValidation
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -651,13 +623,11 @@ def test_tin_validation_update_expiration(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_tin_validation_multiple_tins_per_business(mock_hash):
+def test_tin_validation_multiple_tins_per_business():
     """Test multiple TIN validations per business"""
     from app.models.models import TINValidation
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -694,13 +664,11 @@ def test_tin_validation_multiple_tins_per_business(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_tin_validation_various_tin_formats(mock_hash):
+def test_tin_validation_various_tin_formats():
     """Test TIN validation with various TIN formats"""
     from app.models.models import TINValidation
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -742,3 +710,4 @@ def test_tin_validation_various_tin_formats(mock_hash):
         assert len(tin_validation2.tin) == 15
     finally:
         db.close()
+

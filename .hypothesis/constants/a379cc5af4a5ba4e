@@ -1,0 +1,4 @@
+# file: C:\Dev\01-Work\API's\app\api\endpoints\purchases.py
+# hypothesis_version: 6.151.6
+
+[202, 1000, '/cancel', '/purchases', '/submit', 'Invalid API key', 'PURCHASE', 'Purchase not found', 'RECEIVED', 'completed_at', 'gra_invoice_id', 'gra_qr_code', 'gra_receipt_num', 'gra_response', 'gra_response_code', 'gra_response_message', 'item_total', 'items', 'itmdes', 'itmref', 'purchase_date', 'purchase_num', 'purchases', 'quantity', 'status', 'submission_id', 'submitted_at', 'supplier_name', 'supplier_tin', 'taxcode', 'taxrate', 'total_amount', 'total_levy', 'total_vat', 'unityprice']

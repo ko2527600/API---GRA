@@ -1,0 +1,4 @@
+# file: C:\Dev\01-Work\API's\app\schemas\webhook.py
+# hypothesis_version: 6.151.6
+
+[500, 'Creation timestamp', 'Deleted webhook ID', 'Deletion timestamp', 'New webhook URL', 'Webhook ID', 'Webhook URL', 'events', 'http://', 'https://', 'invoice.failed', 'invoice.success', 'purchase.failed', 'purchase.success', 'refund.failed', 'refund.success', 'webhook_url']

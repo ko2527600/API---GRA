@@ -2,7 +2,7 @@
 import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from unittest.mock import patch
+
 from datetime import datetime
 
 from app.models.models import Business
@@ -22,10 +22,8 @@ class TestSecretsManager:
         Base.metadata.create_all(self.engine)
         self.SessionLocal = sessionmaker(bind=self.engine)
     
-    @patch('app.services.api_key_service.pwd_context.hash')
-    def test_store_gra_credentials(self, mock_hash):
+    def test_store_gra_credentials(self):
         """Test storing GRA credentials"""
-        mock_hash.return_value = "hashed_secret"
         db = self.SessionLocal()
         try:
             # Create business first
@@ -59,10 +57,8 @@ class TestSecretsManager:
         finally:
             db.close()
     
-    @patch('app.services.api_key_service.pwd_context.hash')
-    def test_store_credentials_with_empty_values(self, mock_hash):
+    def test_store_credentials_with_empty_values(self):
         """Test storing credentials with empty values raises error"""
-        mock_hash.return_value = "hashed_secret"
         db = self.SessionLocal()
         try:
             business, _ = BusinessService.create_business(
@@ -84,10 +80,8 @@ class TestSecretsManager:
         finally:
             db.close()
     
-    @patch('app.services.api_key_service.pwd_context.hash')
-    def test_retrieve_gra_credentials(self, mock_hash):
+    def test_retrieve_gra_credentials(self):
         """Test retrieving GRA credentials"""
-        mock_hash.return_value = "hashed_secret"
         db = self.SessionLocal()
         try:
             business, _ = BusinessService.create_business(
@@ -106,10 +100,8 @@ class TestSecretsManager:
         finally:
             db.close()
     
-    @patch('app.services.api_key_service.pwd_context.hash')
-    def test_retrieve_credentials_for_inactive_business(self, mock_hash):
+    def test_retrieve_credentials_for_inactive_business(self):
         """Test retrieving credentials for inactive business raises error"""
-        mock_hash.return_value = "hashed_secret"
         db = self.SessionLocal()
         try:
             business, _ = BusinessService.create_business(
@@ -129,10 +121,8 @@ class TestSecretsManager:
         finally:
             db.close()
     
-    @patch('app.services.api_key_service.pwd_context.hash')
-    def test_rotate_gra_credentials(self, mock_hash):
+    def test_rotate_gra_credentials(self):
         """Test rotating GRA credentials"""
-        mock_hash.return_value = "hashed_secret"
         db = self.SessionLocal()
         try:
             business, _ = BusinessService.create_business(
@@ -165,10 +155,8 @@ class TestSecretsManager:
         finally:
             db.close()
     
-    @patch('app.services.api_key_service.pwd_context.hash')
-    def test_rotate_credentials_with_empty_values(self, mock_hash):
+    def test_rotate_credentials_with_empty_values(self):
         """Test rotating credentials with empty values raises error"""
-        mock_hash.return_value = "hashed_secret"
         db = self.SessionLocal()
         try:
             business, _ = BusinessService.create_business(
@@ -190,10 +178,8 @@ class TestSecretsManager:
         finally:
             db.close()
     
-    @patch('app.services.api_key_service.pwd_context.hash')
-    def test_revoke_gra_credentials(self, mock_hash):
+    def test_revoke_gra_credentials(self):
         """Test revoking GRA credentials"""
-        mock_hash.return_value = "hashed_secret"
         db = self.SessionLocal()
         try:
             business, _ = BusinessService.create_business(
@@ -221,10 +207,8 @@ class TestSecretsManager:
         finally:
             db.close()
     
-    @patch('app.services.api_key_service.pwd_context.hash')
-    def test_validate_gra_credentials_valid(self, mock_hash):
+    def test_validate_gra_credentials_valid(self):
         """Test validating valid GRA credentials"""
-        mock_hash.return_value = "hashed_secret"
         db = self.SessionLocal()
         try:
             business, _ = BusinessService.create_business(
@@ -248,10 +232,8 @@ class TestSecretsManager:
         finally:
             db.close()
     
-    @patch('app.services.api_key_service.pwd_context.hash')
-    def test_validate_credentials_inactive_business(self, mock_hash):
+    def test_validate_credentials_inactive_business(self):
         """Test validating credentials for inactive business"""
-        mock_hash.return_value = "hashed_secret"
         db = self.SessionLocal()
         try:
             business, _ = BusinessService.create_business(
@@ -273,10 +255,8 @@ class TestSecretsManager:
         finally:
             db.close()
     
-    @patch('app.services.api_key_service.pwd_context.hash')
-    def test_get_credential_metadata(self, mock_hash):
+    def test_get_credential_metadata(self):
         """Test getting credential metadata"""
-        mock_hash.return_value = "hashed_secret"
         db = self.SessionLocal()
         try:
             business, _ = BusinessService.create_business(
@@ -299,10 +279,8 @@ class TestSecretsManager:
         finally:
             db.close()
     
-    @patch('app.services.api_key_service.pwd_context.hash')
-    def test_retrieve_nonexistent_business(self, mock_hash):
+    def test_retrieve_nonexistent_business(self):
         """Test retrieving credentials for nonexistent business"""
-        mock_hash.return_value = "hashed_secret"
         db = self.SessionLocal()
         try:
             import uuid
@@ -313,10 +291,8 @@ class TestSecretsManager:
         finally:
             db.close()
     
-    @patch('app.services.api_key_service.pwd_context.hash')
-    def test_store_credentials_nonexistent_business(self, mock_hash):
+    def test_store_credentials_nonexistent_business(self):
         """Test storing credentials for nonexistent business"""
-        mock_hash.return_value = "hashed_secret"
         db = self.SessionLocal()
         try:
             import uuid
@@ -333,10 +309,8 @@ class TestSecretsManager:
         finally:
             db.close()
     
-    @patch('app.services.api_key_service.pwd_context.hash')
-    def test_rotate_credentials_nonexistent_business(self, mock_hash):
+    def test_rotate_credentials_nonexistent_business(self):
         """Test rotating credentials for nonexistent business"""
-        mock_hash.return_value = "hashed_secret"
         db = self.SessionLocal()
         try:
             import uuid
@@ -353,10 +327,8 @@ class TestSecretsManager:
         finally:
             db.close()
     
-    @patch('app.services.api_key_service.pwd_context.hash')
-    def test_revoke_credentials_nonexistent_business(self, mock_hash):
+    def test_revoke_credentials_nonexistent_business(self):
         """Test revoking credentials for nonexistent business"""
-        mock_hash.return_value = "hashed_secret"
         db = self.SessionLocal()
         try:
             import uuid
@@ -367,10 +339,8 @@ class TestSecretsManager:
         finally:
             db.close()
     
-    @patch('app.services.api_key_service.pwd_context.hash')
-    def test_validate_credentials_nonexistent_business(self, mock_hash):
+    def test_validate_credentials_nonexistent_business(self):
         """Test validating credentials for nonexistent business"""
-        mock_hash.return_value = "hashed_secret"
         db = self.SessionLocal()
         try:
             import uuid
@@ -381,10 +351,8 @@ class TestSecretsManager:
         finally:
             db.close()
     
-    @patch('app.services.api_key_service.pwd_context.hash')
-    def test_get_metadata_nonexistent_business(self, mock_hash):
+    def test_get_metadata_nonexistent_business(self):
         """Test getting metadata for nonexistent business"""
-        mock_hash.return_value = "hashed_secret"
         db = self.SessionLocal()
         try:
             import uuid
@@ -394,3 +362,4 @@ class TestSecretsManager:
                 SecretsManager.get_credential_metadata(db, fake_id)
         finally:
             db.close()
+

@@ -2,7 +2,6 @@
 import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from unittest.mock import patch
 
 from app.models.models import Business
 from app.models.base import Base
@@ -20,10 +19,8 @@ class TestBusinessCredentialMethods:
         Base.metadata.create_all(self.engine)
         self.SessionLocal = sessionmaker(bind=self.engine)
     
-    @patch('app.services.api_key_service.pwd_context.hash')
-    def test_get_decrypted_gra_tin(self, mock_hash):
+    def test_get_decrypted_gra_tin(self):
         """Test decrypting GRA TIN"""
-        mock_hash.return_value = "hashed_secret"
         db = self.SessionLocal()
         try:
             test_data = {
@@ -38,10 +35,8 @@ class TestBusinessCredentialMethods:
         finally:
             db.close()
     
-    @patch('app.services.api_key_service.pwd_context.hash')
-    def test_get_decrypted_gra_company_name(self, mock_hash):
+    def test_get_decrypted_gra_company_name(self):
         """Test decrypting GRA company name"""
-        mock_hash.return_value = "hashed_secret"
         db = self.SessionLocal()
         try:
             test_data = {
@@ -56,10 +51,8 @@ class TestBusinessCredentialMethods:
         finally:
             db.close()
     
-    @patch('app.services.api_key_service.pwd_context.hash')
-    def test_get_decrypted_gra_security_key(self, mock_hash):
+    def test_get_decrypted_gra_security_key(self):
         """Test decrypting GRA security key"""
-        mock_hash.return_value = "hashed_secret"
         db = self.SessionLocal()
         try:
             test_data = {
@@ -74,10 +67,8 @@ class TestBusinessCredentialMethods:
         finally:
             db.close()
     
-    @patch('app.services.api_key_service.pwd_context.hash')
-    def test_get_decrypted_gra_credentials(self, mock_hash):
+    def test_get_decrypted_gra_credentials(self):
         """Test getting all decrypted GRA credentials"""
-        mock_hash.return_value = "hashed_secret"
         db = self.SessionLocal()
         try:
             test_data = {
@@ -95,10 +86,8 @@ class TestBusinessCredentialMethods:
         finally:
             db.close()
     
-    @patch('app.services.api_key_service.pwd_context.hash')
-    def test_credentials_are_encrypted_in_database(self, mock_hash):
+    def test_credentials_are_encrypted_in_database(self):
         """Test that credentials are stored encrypted in database"""
-        mock_hash.return_value = "hashed_secret"
         db = self.SessionLocal()
         try:
             test_data = {
@@ -117,10 +106,8 @@ class TestBusinessCredentialMethods:
         finally:
             db.close()
     
-    @patch('app.services.api_key_service.pwd_context.hash')
-    def test_decrypt_corrupted_data(self, mock_hash):
+    def test_decrypt_corrupted_data(self):
         """Test decryption fails with corrupted data"""
-        mock_hash.return_value = "hashed_secret"
         db = self.SessionLocal()
         try:
             test_data = {
@@ -136,10 +123,8 @@ class TestBusinessCredentialMethods:
         finally:
             db.close()
     
-    @patch('app.services.api_key_service.pwd_context.hash')
-    def test_multiple_businesses_have_different_encrypted_values(self, mock_hash):
+    def test_multiple_businesses_have_different_encrypted_values(self):
         """Test that same plaintext encrypts differently for different businesses"""
-        mock_hash.return_value = "hashed_secret"
         db = self.SessionLocal()
         try:
             data1 = {
@@ -161,10 +146,8 @@ class TestBusinessCredentialMethods:
         finally:
             db.close()
     
-    @patch('app.services.api_key_service.pwd_context.hash')
-    def test_credentials_persist_after_database_refresh(self, mock_hash):
+    def test_credentials_persist_after_database_refresh(self):
         """Test that credentials can be decrypted after database refresh"""
-        mock_hash.return_value = "hashed_secret"
         db = self.SessionLocal()
         try:
             test_data = {
@@ -181,10 +164,8 @@ class TestBusinessCredentialMethods:
         finally:
             db.close()
     
-    @patch('app.services.api_key_service.pwd_context.hash')
-    def test_get_decrypted_credentials_returns_all_fields(self, mock_hash):
+    def test_get_decrypted_credentials_returns_all_fields(self):
         """Test that get_decrypted_gra_credentials returns all required fields"""
-        mock_hash.return_value = "hashed_secret"
         db = self.SessionLocal()
         try:
             test_data = {
@@ -202,10 +183,8 @@ class TestBusinessCredentialMethods:
         finally:
             db.close()
     
-    @patch('app.services.api_key_service.pwd_context.hash')
-    def test_decrypt_empty_encrypted_field(self, mock_hash):
+    def test_decrypt_empty_encrypted_field(self):
         """Test decryption fails with empty encrypted field"""
-        mock_hash.return_value = "hashed_secret"
         db = self.SessionLocal()
         try:
             test_data = {
@@ -221,10 +200,8 @@ class TestBusinessCredentialMethods:
         finally:
             db.close()
     
-    @patch('app.services.api_key_service.pwd_context.hash')
-    def test_credentials_with_special_characters(self, mock_hash):
+    def test_credentials_with_special_characters(self):
         """Test encryption/decryption with special characters"""
-        mock_hash.return_value = "hashed_secret"
         db = self.SessionLocal()
         try:
             special_data = {
@@ -240,10 +217,8 @@ class TestBusinessCredentialMethods:
         finally:
             db.close()
     
-    @patch('app.services.api_key_service.pwd_context.hash')
-    def test_credentials_with_unicode_characters(self, mock_hash):
+    def test_credentials_with_unicode_characters(self):
         """Test encryption/decryption with unicode characters"""
-        mock_hash.return_value = "hashed_secret"
         db = self.SessionLocal()
         try:
             unicode_data = {

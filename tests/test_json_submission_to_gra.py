@@ -171,7 +171,7 @@ class TestSubmissionProcessor:
                 # Verify GRA client was called with correct endpoint
                 mock_client.submit_json.assert_called_once()
                 call_args = mock_client.submit_json.call_args
-                assert call_args[1]["endpoint"] == "/api/v1/invoices/submit"
+                assert call_args[1]["endpoint"] == "/post_receipt_Json.jsp"
     
     @pytest.mark.asyncio
     async def test_process_json_submission_injects_credentials_in_payload(self, sample_invoice_data, sample_gra_credentials):

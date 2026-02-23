@@ -1,0 +1,4 @@
+# file: C:\Dev\01-Work\API's\app\services\gra_polling.py
+# hypothesis_version: 6.151.6
+
+[120, 600, 'COMPLETED', 'ERROR', 'FAILED', 'INVOICE', 'PENDING', 'PROCESSING', 'PURCHASE', 'REFUND', 'REJECTED', 'SUCCESS', 'attempt', 'attempts', 'business_id', 'completed_at', 'elapsed_seconds', 'endpoint', 'error', 'error_details', 'error_type', 'gra_invoice_id', 'gra_qr_code', 'gra_receipt_num', 'gra_response_code', 'gra_response_message', 'max_attempts', 'poll_interval', 'response_data', 'response_keys', 'status', 'submission_count', 'submission_id', 'submission_status', 'submission_type', 'timeout', 'ysdcid', 'ysdcintdata', 'ysdcnrc', 'ysdcrecnum']

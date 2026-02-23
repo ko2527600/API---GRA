@@ -1,0 +1,4 @@
+# file: C:\Dev\01-Work\API's\app\api\endpoints\invoices.py
+# hypothesis_version: 6.151.6
+
+[202, 1000, '/invoices', '/submit', 'INVOICE', 'ITEM_CATEGORY', 'Invalid API key', 'Invoice not found', 'RECEIVED', 'business_id', 'client_name', 'client_tin', 'completed_at', 'gra_invoice_id', 'gra_qr_code', 'gra_receipt_num', 'gra_response', 'gra_response_code', 'gra_response_message', 'invoice_date', 'invoice_num', 'invoices', 'items', 'itmdes', 'itmref', 'levy_amount_a', 'levy_amount_b', 'levy_amount_c', 'levy_amount_d', 'quantity', 'status', 'submission_id', 'submitted_at', 'taxcode', 'taxrate', 'total_amount', 'total_levy', 'total_vat', 'unityprice']

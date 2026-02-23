@@ -1,0 +1,4 @@
+# file: C:\Dev\01-Work\API's\app\api\endpoints\z_reports.py
+# hypothesis_version: 6.151.6
+
+[200, 202, '-', '/reports', '/z-report', '/z-report/{date}', 'Invalid API key', 'Invalid date format', 'Invalid month or day', 'RECEIVED', 'Z_REPORT', 'business_id', 'company_tin', 'report_date', 'submission_id', 'z-reports', 'zd_date']

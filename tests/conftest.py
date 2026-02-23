@@ -66,7 +66,7 @@ def create_test_business(db_session, name="Test Business"):
     business = Business(
         id=uuid4(),
         name=name,
-        api_key=secrets.token_urlsafe(32),
+        api_key=f"test-api-key-{secrets.token_urlsafe(16)}",
         api_secret=secrets.token_urlsafe(32),
         gra_tin="C00XXXXXXXX",
         gra_company_name="Test Company",
@@ -96,32 +96,36 @@ def create_test_api_key(db_session, business_id):
 
 
 @pytest.fixture(autouse=True)
-def cleanup_test_data():
+def cleanup_test_data(db_session):
     """Clean up test data before each test"""
-    from sqlalchemy import create_engine, text
-    database_url = "postgresql://postgres:postgres@localhost:5432/API_s_GRA"
-    engine = create_engine(database_url)
-    
     # Clean up test data with specific API keys before test
     try:
-        with engine.connect() as conn:
-            conn.execute(text("DELETE FROM invoices WHERE submission_id IN (SELECT id FROM submissions WHERE business_id IN (SELECT id FROM businesses WHERE api_key LIKE 'test-api-key%'))"))
-            conn.execute(text("DELETE FROM submissions WHERE business_id IN (SELECT id FROM businesses WHERE api_key LIKE 'test-api-key%')"))
-            conn.execute(text("DELETE FROM businesses WHERE api_key LIKE 'test-api-key%'"))
-            conn.commit()
-    except:
+        from sqlalchemy import text
+        db_session.execute(text("DELETE FROM webhook_deliveries WHERE webhook_id IN (SELECT id FROM webhooks WHERE business_id IN (SELECT id FROM businesses WHERE api_key LIKE 'test-api-key%'))"))
+        db_session.execute(text("DELETE FROM webhooks WHERE business_id IN (SELECT id FROM businesses WHERE api_key LIKE 'test-api-key%')"))
+        db_session.execute(text("DELETE FROM invoices WHERE submission_id IN (SELECT id FROM submissions WHERE business_id IN (SELECT id FROM businesses WHERE api_key LIKE 'test-api-key%'))"))
+        db_session.execute(text("DELETE FROM submissions WHERE business_id IN (SELECT id FROM businesses WHERE api_key LIKE 'test-api-key%')"))
+        db_session.execute(text("DELETE FROM audit_logs WHERE business_id IN (SELECT id FROM businesses WHERE api_key LIKE 'test-api-key%')"))
+        db_session.execute(text("DELETE FROM businesses WHERE api_key LIKE 'test-api-key%'"))
+        db_session.commit()
+    except Exception as e:
+        db_session.rollback()
         pass  # Ignore errors during cleanup
     
     yield
     
     # Cleanup after test
     try:
-        with engine.connect() as conn:
-            conn.execute(text("DELETE FROM invoices WHERE submission_id IN (SELECT id FROM submissions WHERE business_id IN (SELECT id FROM businesses WHERE api_key LIKE 'test-api-key%'))"))
-            conn.execute(text("DELETE FROM submissions WHERE business_id IN (SELECT id FROM businesses WHERE api_key LIKE 'test-api-key%')"))
-            conn.execute(text("DELETE FROM businesses WHERE api_key LIKE 'test-api-key%'"))
-            conn.commit()
-    except:
+        from sqlalchemy import text
+        db_session.execute(text("DELETE FROM webhook_deliveries WHERE webhook_id IN (SELECT id FROM webhooks WHERE business_id IN (SELECT id FROM businesses WHERE api_key LIKE 'test-api-key%'))"))
+        db_session.execute(text("DELETE FROM webhooks WHERE business_id IN (SELECT id FROM businesses WHERE api_key LIKE 'test-api-key%')"))
+        db_session.execute(text("DELETE FROM invoices WHERE submission_id IN (SELECT id FROM submissions WHERE business_id IN (SELECT id FROM businesses WHERE api_key LIKE 'test-api-key%'))"))
+        db_session.execute(text("DELETE FROM submissions WHERE business_id IN (SELECT id FROM businesses WHERE api_key LIKE 'test-api-key%')"))
+        db_session.execute(text("DELETE FROM audit_logs WHERE business_id IN (SELECT id FROM businesses WHERE api_key LIKE 'test-api-key%')"))
+        db_session.execute(text("DELETE FROM businesses WHERE api_key LIKE 'test-api-key%'"))
+        db_session.commit()
+    except Exception as e:
+        db_session.rollback()
         pass  # Ignore errors during cleanup
 
 
@@ -131,6 +135,9 @@ def client_with_db(db_session):
     from fastapi.testclient import TestClient
     from app.main import app
     from app.database import get_db
+    from app.middleware.auth_dependency import verify_auth
+    from fastapi import Request, Depends
+    from sqlalchemy.orm import Session
     
     def override_get_db():
         # Return the same session used for test setup
@@ -139,10 +146,47 @@ def client_with_db(db_session):
         finally:
             pass  # Don't close - let fixture handle it
     
+    def override_verify_auth(request: Request):
+        """Override auth to return test business data"""
+        # Get the API key from headers
+        api_key = request.headers.get("X-API-Key")
+        if not api_key:
+            from fastapi import HTTPException
+            raise HTTPException(status_code=401, detail="Missing X-API-Key header")
+        
+        # Find the business by API key
+        from app.models.models import Business
+        business = db_session.query(Business).filter(Business.api_key == api_key).first()
+        if not business:
+            from fastapi import HTTPException
+            raise HTTPException(status_code=401, detail="Invalid API key")
+        
+        return {
+            "id": str(business.id),
+            "name": business.name,
+            "api_key": api_key,
+            "status": business.status
+        }
+    
     app.dependency_overrides[get_db] = override_get_db
+    app.dependency_overrides[verify_auth] = override_verify_auth
     
     client = TestClient(app)
     yield client
     
     # Cleanup
     app.dependency_overrides.clear()
+
+
+@pytest.fixture
+def business_id(db_session):
+    """Create a test business and return its ID"""
+    from app.services.business_service import BusinessService
+    business, _ = BusinessService.create_business(
+        db=db_session,
+        business_name="Test Business",
+        gra_tin="C00XXXXXXXX",
+        gra_company_name="TEST COMPANY",
+        gra_security_key="TESTSECURITYKEY123456789012345"
+    )
+    return business.id

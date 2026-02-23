@@ -2,7 +2,7 @@
 import pytest
 from fastapi.testclient import TestClient
 from datetime import datetime, timedelta
-from unittest.mock import patch
+
 
 from app.main import app
 from app.database import get_db, SessionLocal, init_db
@@ -26,10 +26,8 @@ def client():
 
 
 @pytest.fixture
-@patch('app.services.api_key_service.pwd_context.hash')
 def business_with_api_key(mock_hash):
     """Create a business with API key for testing"""
-    mock_hash.return_value = "hashed_secret"
     db = SessionLocal()
     try:
         business, api_key = BusinessService.create_business(
@@ -48,7 +46,6 @@ def business_with_api_key(mock_hash):
 class TestItemRegistrationEndpoint:
     """Tests for POST /api/v1/items/register"""
     
-    @patch('app.services.api_key_service.pwd_context.hash')
     def test_register_item_success(self, mock_hash, client, business_with_api_key):
         """Test 1: Successfully register an item"""
         business, api_key = business_with_api_key
@@ -77,7 +74,6 @@ class TestItemRegistrationEndpoint:
         assert data["status"] == "RECEIVED"
         assert "submission_id" in data
     
-    @patch('app.services.api_key_service.pwd_context.hash')
     def test_register_item_duplicate_ref(self, mock_hash, client, business_with_api_key):
         """Test 2: Reject duplicate item reference"""
         business, api_key = business_with_api_key
@@ -119,7 +115,6 @@ class TestItemRegistrationEndpoint:
         assert response.status_code == 400
         assert "already exists" in response.json()["detail"]
     
-    @patch('app.services.api_key_service.pwd_context.hash')
     def test_register_item_invalid_api_key(self, mock_hash, client):
         """Test 3: Reject invalid API key"""
         payload = {
@@ -142,7 +137,6 @@ class TestItemRegistrationEndpoint:
         
         assert response.status_code == 401
     
-    @patch('app.services.api_key_service.pwd_context.hash')
     def test_register_item_all_tax_codes(self, mock_hash, client, business_with_api_key):
         """Test 4: Register items with all valid tax codes"""
         business, api_key = business_with_api_key
@@ -171,7 +165,6 @@ class TestItemRegistrationEndpoint:
             assert response.status_code == 202
             assert response.json()["status"] == "RECEIVED"
     
-    @patch('app.services.api_key_service.pwd_context.hash')
     def test_register_item_invalid_tax_code(self, mock_hash, client, business_with_api_key):
         """Test 5: Reject invalid tax code"""
         business, api_key = business_with_api_key
@@ -200,7 +193,6 @@ class TestItemRegistrationEndpoint:
 class TestGetItemDetailsEndpoint:
     """Tests for GET /api/v1/items/{item_ref}"""
     
-    @patch('app.services.api_key_service.pwd_context.hash')
     def test_get_item_details_success(self, mock_hash, client, business_with_api_key):
         """Test 6: Successfully retrieve item details"""
         business, api_key = business_with_api_key
@@ -230,7 +222,6 @@ class TestGetItemDetailsEndpoint:
         assert data["item_ref"] == "PROD001"
         assert data["status"] == "RECEIVED"
     
-    @patch('app.services.api_key_service.pwd_context.hash')
     def test_get_item_not_found(self, mock_hash, client, business_with_api_key):
         """Test 7: Return 404 for non-existent item"""
         business, api_key = business_with_api_key
@@ -242,7 +233,6 @@ class TestGetItemDetailsEndpoint:
         
         assert response.status_code == 404
     
-    @patch('app.services.api_key_service.pwd_context.hash')
     def test_get_item_with_gra_id(self, mock_hash, client, business_with_api_key):
         """Test 8: Retrieve item with GRA ID"""
         business, api_key = business_with_api_key
@@ -277,7 +267,6 @@ class TestGetItemDetailsEndpoint:
 class TestInventoryUpdateEndpoint:
     """Tests for POST /api/v1/inventory/update"""
     
-    @patch('app.services.api_key_service.pwd_context.hash')
     def test_update_inventory_success(self, mock_hash, client, business_with_api_key):
         """Test 9: Successfully update inventory"""
         business, api_key = business_with_api_key
@@ -317,7 +306,6 @@ class TestInventoryUpdateEndpoint:
         assert data["status"] == "SUCCESS"
         assert data["new_quantity"] == "50"
     
-    @patch('app.services.api_key_service.pwd_context.hash')
     def test_update_inventory_all_operation_types(self, mock_hash, client, business_with_api_key):
         """Test 10: Update inventory with all operation types"""
         business, api_key = business_with_api_key
@@ -357,7 +345,6 @@ class TestInventoryUpdateEndpoint:
             assert response.status_code == 202
             assert response.json()["status"] == "SUCCESS"
     
-    @patch('app.services.api_key_service.pwd_context.hash')
     def test_update_inventory_negative_quantity(self, mock_hash, client, business_with_api_key):
         """Test 11: Update inventory with negative quantity"""
         business, api_key = business_with_api_key
@@ -395,7 +382,6 @@ class TestInventoryUpdateEndpoint:
         data = response.json()
         assert data["status"] == "SUCCESS"
     
-    @patch('app.services.api_key_service.pwd_context.hash')
     def test_update_inventory_item_not_found(self, mock_hash, client, business_with_api_key):
         """Test 12: Reject inventory update for non-existent item"""
         business, api_key = business_with_api_key
@@ -420,7 +406,6 @@ class TestInventoryUpdateEndpoint:
 class TestTINValidationEndpoint:
     """Tests for POST /api/v1/tin/validate"""
     
-    @patch('app.services.api_key_service.pwd_context.hash')
     def test_validate_tin_success(self, mock_hash, client, business_with_api_key):
         """Test 13: Successfully validate TIN"""
         business, api_key = business_with_api_key
@@ -442,7 +427,6 @@ class TestTINValidationEndpoint:
         assert data["is_valid"] is True
         assert data["cached"] is False
     
-    @patch('app.services.api_key_service.pwd_context.hash')
     def test_validate_tin_cached(self, mock_hash, client, business_with_api_key):
         """Test 14: TIN validation returns cached result"""
         business, api_key = business_with_api_key
@@ -480,7 +464,6 @@ class TestTINValidationEndpoint:
         assert data["cached"] is True
         assert data["entity_name"] == "Test Company"
     
-    @patch('app.services.api_key_service.pwd_context.hash')
     def test_validate_tin_individual(self, mock_hash, client, business_with_api_key):
         """Test 15: Validate individual TIN"""
         business, api_key = business_with_api_key
@@ -504,7 +487,6 @@ class TestTINValidationEndpoint:
 class TestTagDescriptionEndpoint:
     """Tests for POST /api/v1/tags/register"""
     
-    @patch('app.services.api_key_service.pwd_context.hash')
     def test_register_tag_success(self, mock_hash, client, business_with_api_key):
         """Test 16: Successfully register tag description"""
         business, api_key = business_with_api_key
@@ -528,7 +510,6 @@ class TestTagDescriptionEndpoint:
         assert data["tag_code"] == "TAG001"
         assert data["status"] == "RECEIVED"
     
-    @patch('app.services.api_key_service.pwd_context.hash')
     def test_register_tag_duplicate(self, mock_hash, client, business_with_api_key):
         """Test 17: Reject duplicate tag code"""
         business, api_key = business_with_api_key
@@ -563,3 +544,4 @@ class TestTagDescriptionEndpoint:
         
         assert response.status_code == 400
         assert "already exists" in response.json()["detail"]
+

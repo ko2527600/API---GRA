@@ -1,0 +1,4 @@
+# file: C:\Dev\01-Work\API's\app\services\webhook_event_manager.py
+# hypothesis_version: 6.151.6
+
+['FAILED', 'INVOICE', 'PURCHASE', 'REFUND', 'SUCCESS', 'business_id', 'completed_at', 'error', 'error_details', 'event_type', 'gra_invoice_id', 'gra_qr_code', 'gra_receipt_num', 'gra_response_code', 'gra_response_message', 'invoice.failed', 'invoice.success', 'purchase.failed', 'purchase.success', 'refund.failed', 'refund.success', 'status', 'submission_id', 'submission_status', 'submission_type', 'submitted_at', 'triggered_count', 'webhook_id']

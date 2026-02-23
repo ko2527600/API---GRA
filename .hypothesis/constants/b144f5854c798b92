@@ -1,0 +1,4 @@
+# file: C:\Dev\01-Work\API's\app\middleware\auth.py
+# hypothesis_version: 6.151.6
+
+['/api/v1/health', '/docs', '/openapi.json', '/redoc', 'API key identifier', 'AUTH_FAILED', 'ISO format timestamp', 'Invalid API key', 'Invalid signature', 'X-API-Key', 'X-API-Signature', 'X-API-Timestamp', 'Z', 'active', 'api_key', 'error_code', 'id', 'message', 'name', 'status', 'timestamp']

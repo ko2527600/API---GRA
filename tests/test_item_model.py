@@ -3,7 +3,7 @@ import pytest
 from datetime import datetime
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from unittest.mock import patch
+
 
 
 def create_test_db():
@@ -14,13 +14,11 @@ def create_test_db():
     return engine, sessionmaker(bind=engine)
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_item_creation(mock_hash):
+def test_item_creation():
     """Test creating an item"""
     from app.models.models import Item
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -53,13 +51,11 @@ def test_item_creation(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_item_with_all_tax_codes(mock_hash):
+def test_item_with_all_tax_codes():
     """Test items with all valid tax codes"""
     from app.models.models import Item
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -94,14 +90,12 @@ def test_item_with_all_tax_codes(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_item_unique_constraint_per_business(mock_hash):
+def test_item_unique_constraint_per_business():
     """Test item_ref is unique per business"""
     from app.models.models import Item
     from app.services.business_service import BusinessService
     from sqlalchemy.exc import IntegrityError
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -140,13 +134,11 @@ def test_item_unique_constraint_per_business(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_item_same_ref_different_businesses(mock_hash):
+def test_item_same_ref_different_businesses():
     """Test same item_ref can exist in different businesses"""
     from app.models.models import Item
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -193,13 +185,11 @@ def test_item_same_ref_different_businesses(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_item_with_gra_item_id(mock_hash):
+def test_item_with_gra_item_id():
     """Test item with GRA registration ID"""
     from app.models.models import Item
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -229,13 +219,11 @@ def test_item_with_gra_item_id(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_item_registration_status_values(mock_hash):
+def test_item_registration_status_values():
     """Test different item registration status values"""
     from app.models.models import Item
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -270,13 +258,11 @@ def test_item_registration_status_values(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_item_without_category(mock_hash):
+def test_item_without_category():
     """Test item creation without category (optional field)"""
     from app.models.models import Item
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -304,13 +290,11 @@ def test_item_without_category(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_item_timestamps(mock_hash):
+def test_item_timestamps():
     """Test item has created_at and updated_at timestamps"""
     from app.models.models import Item
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -341,13 +325,11 @@ def test_item_timestamps(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_query_items_by_business(mock_hash):
+def test_query_items_by_business():
     """Test querying items by business"""
     from app.models.models import Item
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -399,13 +381,11 @@ def test_query_items_by_business(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_item_relationship_with_business(mock_hash):
+def test_item_relationship_with_business():
     """Test item relationship with business"""
     from app.models.models import Item
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -447,13 +427,11 @@ def test_item_relationship_with_business(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_item_cascade_delete_with_business(mock_hash):
+def test_item_cascade_delete_with_business():
     """Test that deleting business cascades to delete items"""
     from app.models.models import Item
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -496,3 +474,4 @@ def test_item_cascade_delete_with_business(mock_hash):
         assert len(deleted_business) == 0
     finally:
         db.close()
+

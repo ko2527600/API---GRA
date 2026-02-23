@@ -1,0 +1,4 @@
+# file: C:\Dev\01-Work\API's\app\schemas\api_key.py
+# hypothesis_version: 6.151.6
+
+[255, 500, 'ABC COMPANY LTD', 'ABC Company Ltd', 'API Key', 'Business ID', 'Business name', 'C00XXXXXXXX', 'Creation timestamp', 'GRA company name', 'GRA security key', 'Last used timestamp', 'Revocation timestamp', 'Revoked API key']

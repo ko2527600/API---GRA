@@ -1,0 +1,4 @@
+# file: C:\Dev\01-Work\API's\app\middleware\rate_limit.py
+# hypothesis_version: 6.151.6
+
+[100, '/api/v1/health', '/docs', '/health', '/openapi.json', '/redoc', 'RATE_LIMIT_EXCEEDED', 'Retry-After', 'Z', 'error_code', 'message', 'retry_after', 'timestamp']

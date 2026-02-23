@@ -1,0 +1,4 @@
+# file: C:\Dev\01-Work\API's\app\api\endpoints\items.py
+# hypothesis_version: 6.151.6
+
+[0.0, 202, '/inventory/update', '/items', '/register', '/tags/register', '/tin/validate', '/{item_ref}', 'ACTIVE', 'FAILED', 'INACTIVE', 'INVALID', 'INVENTORY', 'ITEM', 'Invalid API key', 'Item not found', 'PENDING', 'RECEIVED', 'REGISTERED', 'SUCCESS', 'Sample Taxpayer', 'TAG_DESCRIPTION', 'TIN is valid', 'TIN not found', 'TIN001', 'TIN002', 'VALID', 'items']

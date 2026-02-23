@@ -1,0 +1,4 @@
+# file: C:\Dev\01-Work\API's\app\services\audit_log_service.py
+# hypothesis_version: 6.151.6
+
+[100, 1000, 2555, 'action', 'audit_log_id', 'business_id', 'cutoff_date', 'days_to_keep', 'deleted_count', 'end_date', 'error', 'start_date']

@@ -3,7 +3,6 @@ import pytest
 from datetime import datetime, timedelta
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from unittest.mock import patch
 
 
 def create_test_db():
@@ -14,13 +13,11 @@ def create_test_db():
     return engine, sessionmaker(bind=engine)
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_vsdc_health_check_creation(mock_hash):
+def test_vsdc_health_check_creation():
     """Test creating a VSDC health check record"""
     from app.models.models import VSDCHealthCheck
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -51,13 +48,11 @@ def test_vsdc_health_check_creation(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
 def test_vsdc_health_check_all_status_values(mock_hash):
     """Test all VSDC health check status values"""
     from app.models.models import VSDCHealthCheck
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -93,13 +88,11 @@ def test_vsdc_health_check_all_status_values(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
 def test_vsdc_health_check_latest_per_business(mock_hash):
     """Test querying latest VSDC health check per business"""
     from app.models.models import VSDCHealthCheck
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -137,13 +130,11 @@ def test_vsdc_health_check_latest_per_business(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
 def test_vsdc_health_check_expiration(mock_hash):
     """Test VSDC health check expiration time"""
     from app.models.models import VSDCHealthCheck
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -173,13 +164,11 @@ def test_vsdc_health_check_expiration(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
 def test_vsdc_health_check_checked_at_timestamp(mock_hash):
     """Test VSDC health check checked_at timestamp"""
     from app.models.models import VSDCHealthCheck
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -211,13 +200,11 @@ def test_vsdc_health_check_checked_at_timestamp(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
 def test_vsdc_health_check_timestamps(mock_hash):
     """Test VSDC health check has created_at and updated_at timestamps"""
     from app.models.models import VSDCHealthCheck
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -248,13 +235,11 @@ def test_vsdc_health_check_timestamps(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
 def test_vsdc_health_check_gra_response_code(mock_hash):
     """Test VSDC health check with GRA response code"""
     from app.models.models import VSDCHealthCheck
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -296,13 +281,11 @@ def test_vsdc_health_check_gra_response_code(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
 def test_vsdc_health_check_sdc_id_optional(mock_hash):
     """Test sdc_id is optional"""
     from app.models.models import VSDCHealthCheck
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -344,13 +327,11 @@ def test_vsdc_health_check_sdc_id_optional(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
 def test_vsdc_health_check_query_by_business(mock_hash):
     """Test querying VSDC health checks by business"""
     from app.models.models import VSDCHealthCheck
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -402,13 +383,11 @@ def test_vsdc_health_check_query_by_business(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
 def test_vsdc_health_check_query_expired(mock_hash):
     """Test querying expired VSDC health checks"""
     from app.models.models import VSDCHealthCheck
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -456,13 +435,11 @@ def test_vsdc_health_check_query_expired(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
 def test_vsdc_health_check_update_status(mock_hash):
     """Test updating VSDC health check status"""
     from app.models.models import VSDCHealthCheck
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -496,13 +473,11 @@ def test_vsdc_health_check_update_status(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
 def test_vsdc_health_check_update_expiration(mock_hash):
     """Test updating VSDC health check expiration time"""
     from app.models.models import VSDCHealthCheck
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -537,13 +512,11 @@ def test_vsdc_health_check_update_expiration(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
 def test_vsdc_health_check_multiple_checks_per_business(mock_hash):
     """Test multiple VSDC health checks per business"""
     from app.models.models import VSDCHealthCheck
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -579,13 +552,11 @@ def test_vsdc_health_check_multiple_checks_per_business(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
 def test_vsdc_health_check_different_businesses(mock_hash):
     """Test VSDC health checks for different businesses are isolated"""
     from app.models.models import VSDCHealthCheck
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -637,13 +608,11 @@ def test_vsdc_health_check_different_businesses(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
 def test_vsdc_health_check_degraded_status(mock_hash):
     """Test VSDC health check with DEGRADED status"""
     from app.models.models import VSDCHealthCheck
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -671,13 +640,11 @@ def test_vsdc_health_check_degraded_status(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
 def test_vsdc_health_check_various_sdc_ids(mock_hash):
     """Test VSDC health check with various SDC ID formats"""
     from app.models.models import VSDCHealthCheck
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -713,13 +680,11 @@ def test_vsdc_health_check_various_sdc_ids(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
 def test_vsdc_health_check_various_error_codes(mock_hash):
     """Test VSDC health check with various GRA error codes"""
     from app.models.models import VSDCHealthCheck
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -755,13 +720,11 @@ def test_vsdc_health_check_various_error_codes(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
 def test_vsdc_health_check_five_minute_cache(mock_hash):
     """Test VSDC health check with 5-minute cache expiration"""
     from app.models.models import VSDCHealthCheck
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -792,13 +755,11 @@ def test_vsdc_health_check_five_minute_cache(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
 def test_vsdc_health_check_delete_cascade(mock_hash):
     """Test VSDC health check is deleted when business is deleted"""
     from app.models.models import VSDCHealthCheck
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -830,3 +791,4 @@ def test_vsdc_health_check_delete_cascade(mock_hash):
         assert deleted_check is None
     finally:
         db.close()
+

@@ -3,7 +3,7 @@ import pytest
 from datetime import datetime
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from unittest.mock import patch
+
 
 
 def create_test_db():
@@ -14,13 +14,11 @@ def create_test_db():
     return engine, sessionmaker(bind=engine)
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_invoice_creation(mock_hash):
+def test_invoice_creation():
     """Test creating an invoice"""
     from app.models.models import Invoice, Submission, SubmissionType
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -65,13 +63,11 @@ def test_invoice_creation(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_invoice_with_client_tin(mock_hash):
+def test_invoice_with_client_tin():
     """Test invoice with client TIN"""
     from app.models.models import Invoice, Submission, SubmissionType
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -113,13 +109,11 @@ def test_invoice_with_client_tin(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_invoice_with_line_items(mock_hash):
+def test_invoice_with_line_items():
     """Test invoice with multiple line items"""
     from app.models.models import Invoice, InvoiceItem, Submission, SubmissionType
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -200,13 +194,11 @@ def test_invoice_with_line_items(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_invoice_item_creation(mock_hash):
+def test_invoice_item_creation():
     """Test creating an invoice item"""
     from app.models.models import Invoice, InvoiceItem, Submission, SubmissionType
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -270,13 +262,11 @@ def test_invoice_item_creation(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_invoice_item_with_all_levies(mock_hash):
+def test_invoice_item_with_all_levies():
     """Test invoice item with all levy amounts"""
     from app.models.models import Invoice, InvoiceItem, Submission, SubmissionType
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -338,13 +328,11 @@ def test_invoice_item_with_all_levies(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_invoice_item_with_discount(mock_hash):
+def test_invoice_item_with_discount():
     """Test invoice item with discount"""
     from app.models.models import Invoice, InvoiceItem, Submission, SubmissionType
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -404,13 +392,11 @@ def test_invoice_item_with_discount(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_invoice_item_different_tax_codes(mock_hash):
+def test_invoice_item_different_tax_codes():
     """Test invoice items with different tax codes"""
     from app.models.models import Invoice, InvoiceItem, Submission, SubmissionType
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -512,13 +498,11 @@ def test_invoice_item_different_tax_codes(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_invoice_timestamps(mock_hash):
+def test_invoice_timestamps():
     """Test invoice has created_at and updated_at timestamps"""
     from app.models.models import Invoice, Submission, SubmissionType
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -561,14 +545,12 @@ def test_invoice_timestamps(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_invoice_unique_constraint(mock_hash):
+def test_invoice_unique_constraint():
     """Test invoice number is unique per business"""
     from app.models.models import Invoice, Submission, SubmissionType
     from app.services.business_service import BusinessService
     from sqlalchemy.exc import IntegrityError
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -631,13 +613,11 @@ def test_invoice_unique_constraint(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_invoice_cascade_delete_items(mock_hash):
+def test_invoice_cascade_delete_items():
     """Test that deleting invoice cascades to delete items"""
     from app.models.models import Invoice, InvoiceItem, Submission, SubmissionType
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -725,13 +705,11 @@ def test_invoice_cascade_delete_items(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_query_invoices_by_business(mock_hash):
+def test_query_invoices_by_business():
     """Test querying invoices by business"""
     from app.models.models import Invoice, Submission, SubmissionType
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -805,3 +783,4 @@ def test_query_invoices_by_business(mock_hash):
         assert len(business2_invoices) == 2
     finally:
         db.close()
+

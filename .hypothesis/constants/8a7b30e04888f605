@@ -1,0 +1,4 @@
+# file: C:\Dev\01-Work\API's\app\utils\webhook_signature.py
+# hypothesis_version: 6.151.6
+
+[',', ':', 'X-Webhook-Sig', 'X-Webhook-Signature', 'x-webhook-sig', 'x-webhook-signature']

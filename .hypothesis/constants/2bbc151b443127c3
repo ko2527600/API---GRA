@@ -1,0 +1,4 @@
+# file: C:\Dev\01-Work\API's\app\api\endpoints\webhooks.py
+# hypothesis_version: 6.151.6
+
+[201, 400, 404, 500, '/list', '/register', '/webhooks', '/{webhook_id}', 'Webhook not found', 'Webhooks', 'Z', 'created_at', 'events', 'id', 'is_active', 'updated_at', 'webhook_id', 'webhook_url', 'webhooks']

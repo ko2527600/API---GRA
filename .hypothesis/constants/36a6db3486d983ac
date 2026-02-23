@@ -1,0 +1,4 @@
+# file: C:\Dev\01-Work\API's\app\services\submission_processor.py
+# hypothesis_version: 6.151.6
+
+[120, 600, 'COMPANY_NAMES', 'COMPANY_SECURITY_KEY', 'COMPANY_TIN', 'FAILED', 'PENDING_GRA', 'PROCESSING', 'SUCCESS', 'UNKNOWN', 'business_id', 'company', 'error', 'error_type', 'final_status', 'gra_company_name', 'gra_invoice_id', 'gra_qr_code', 'gra_receipt_num', 'gra_response_code', 'gra_response_message', 'gra_security_key', 'gra_tin', 'response_data', 'status', 'submission_id', 'unicode', 'ysdcid', 'ysdcintdata', 'ysdcnrc', 'ysdcrecnum']

@@ -96,20 +96,8 @@ class AuthMiddleware:
             raise AuthenticationError("Business account is inactive")
         
         # Read request body for signature verification
+        # Cache the body so it can be read again by the endpoint
         body = await request.body()
-        
-        # Generate expected signature
-        try:
-            expected_signature = AuthMiddleware._generate_signature(
-                api_secret=business.api_secret,
-                method=request.method,
-                path=request.url.path,
-                timestamp=timestamp,
-                body=body
-            )
-        except Exception as e:
-            logger.error(f"Error generating signature: {str(e)}")
-            raise AuthenticationError("Failed to verify signature")
         
         # Verify signature using constant-time comparison
         if not HMACSignatureManager.verify_signature(
@@ -133,36 +121,6 @@ class AuthMiddleware:
             "api_key": api_key,
             "status": business.status
         }, api_key
-    
-    @staticmethod
-    def _generate_signature(
-        api_secret: str,
-        method: str,
-        path: str,
-        timestamp: str,
-        body: bytes
-    ) -> str:
-        """
-        Generate HMAC-SHA256 signature for verification.
-        
-        Args:
-            api_secret: The business's API secret
-            method: HTTP method (GET, POST, etc)
-            path: Request path
-            timestamp: ISO format timestamp
-            body: Request body as bytes
-            
-        Returns:
-            str: Hex-encoded HMAC-SHA256 signature
-        """
-        body_hash = HMACSignatureManager.generate_body_hash(body)
-        message = HMACSignatureManager.generate_signature_message(
-            method=method,
-            path=path,
-            timestamp=timestamp,
-            body_hash=body_hash
-        )
-        return HMACSignatureManager.generate_signature(api_secret, message)
     
     @staticmethod
     def create_error_response(

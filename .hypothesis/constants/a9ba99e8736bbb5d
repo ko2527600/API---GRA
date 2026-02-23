@@ -1,0 +1,4 @@
+# file: C:\Dev\01-Work\API's\app\api\endpoints\api_keys.py
+# hypothesis_version: 6.151.6
+
+['/api-keys', '/generate', '/{business_id}', 'API Keys', 'Business not found', 'not found']

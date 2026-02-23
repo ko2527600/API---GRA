@@ -3,7 +3,7 @@ import pytest
 from datetime import datetime
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from unittest.mock import patch
+
 
 
 def create_test_db():
@@ -14,13 +14,11 @@ def create_test_db():
     return engine, sessionmaker(bind=engine)
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_submission_creation(mock_hash):
+def test_submission_creation():
     """Test creating a submission"""
     from app.models.models import Submission, SubmissionStatus, SubmissionType
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -49,13 +47,11 @@ def test_submission_creation(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_submission_default_status(mock_hash):
+def test_submission_default_status():
     """Test submission defaults to RECEIVED status"""
     from app.models.models import Submission, SubmissionStatus, SubmissionType
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -80,13 +76,11 @@ def test_submission_default_status(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_submission_timestamps(mock_hash):
+def test_submission_timestamps():
     """Test submission has created_at and updated_at timestamps"""
     from app.models.models import Submission, SubmissionType
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -114,13 +108,11 @@ def test_submission_timestamps(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_submission_status_transitions(mock_hash):
+def test_submission_status_transitions():
     """Test submission can transition through different statuses"""
     from app.models.models import Submission, SubmissionStatus, SubmissionType
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -151,13 +143,11 @@ def test_submission_status_transitions(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_submission_failed_status(mock_hash):
+def test_submission_failed_status():
     """Test submission can be marked as failed"""
     from app.models.models import Submission, SubmissionStatus, SubmissionType
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -185,13 +175,11 @@ def test_submission_failed_status(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_submission_with_gra_response(mock_hash):
+def test_submission_with_gra_response():
     """Test submission with GRA response data"""
     from app.models.models import Submission, SubmissionStatus, SubmissionType
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -224,13 +212,11 @@ def test_submission_with_gra_response(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_submission_with_invoice_relationship(mock_hash):
+def test_submission_with_invoice_relationship():
     """Test submission with related invoice"""
     from app.models.models import Submission, Invoice, SubmissionType
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -271,13 +257,11 @@ def test_submission_with_invoice_relationship(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_submission_with_refund_relationship(mock_hash):
+def test_submission_with_refund_relationship():
     """Test submission with related refund"""
     from app.models.models import Submission, Refund, SubmissionType
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -316,13 +300,11 @@ def test_submission_with_refund_relationship(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_query_submissions_by_business(mock_hash):
+def test_query_submissions_by_business():
     """Test querying submissions by business"""
     from app.models.models import Submission, SubmissionType
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -368,13 +350,11 @@ def test_query_submissions_by_business(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_submission_with_complex_json(mock_hash):
+def test_submission_with_complex_json():
     """Test submission with complex JSON request and response"""
     from app.models.models import Submission, SubmissionStatus, SubmissionType
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -408,3 +388,4 @@ def test_submission_with_complex_json(mock_hash):
         assert len(submission.raw_request["items"]) == 2
     finally:
         db.close()
+

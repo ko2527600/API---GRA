@@ -146,7 +146,7 @@ class GRAPollingService:
                         extra={
                             "submission_id": submission_id,
                             "status": submission.submission_status,
-                            "attempts": attempt + 1,
+                            "attempts": attempt,
                         }
                     )
                     
@@ -158,7 +158,7 @@ class GRAPollingService:
                         "gra_qr_code": submission.gra_qr_code,
                         "gra_receipt_num": submission.gra_receipt_num,
                         "completed_at": submission.completed_at,
-                        "attempts": attempt + 1,
+                        "attempts": attempt,
                     }
                 
                 # Wait before next poll

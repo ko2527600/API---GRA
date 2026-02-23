@@ -1,0 +1,4 @@
+# file: C:\Dev\01-Work\API's\app\services\webhook_delivery.py
+# hypothesis_version: 6.151.6
+
+[100, 200, 'Content-Type', 'FAILED', 'PENDING', 'SUCCESS', 'X-Webhook-Signature', 'Z', 'application/json', 'attempt', 'count', 'data', 'delivery_id', 'error', 'event_type', 'max_attempts', 'next_retry_at', 'response_code', 'retried_count', 'retry_count', 'submission_id', 'timeout', 'timestamp', 'webhook_id']

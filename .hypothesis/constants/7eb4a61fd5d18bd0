@@ -1,0 +1,4 @@
+# file: C:\Dev\01-Work\API's\app\logger.py
+# hypothesis_version: 6.151.6
+
+['***', 'API_REQUEST', 'API_RESPONSE', 'AUTHZ_FAILURE', 'AUTH_FAILED', 'AUTH_SUCCESS', 'GRA_RESPONSE', 'GRA_SUBMISSION', 'VALIDATION_ERROR', '\\1: ****', 'action', 'api_key', 'api_secret', 'audit', 'business_id', 'default', 'encryption_key', 'endpoint', 'error_code', 'error_message', 'exception', 'extra', 'field', 'function', 'gra_api', 'gra_api.audit', 'gra_security_key', 'info', 'ip_address', 'json', 'level', 'line', 'logger', 'message', 'method', 'module', 'partial', 'password', 'reason', 'request_data', 'response_code', 'response_data', 'response_message', 'response_time_ms', 'secret', 'security_key', 'signature', 'status_code', 'submission_id', 'submission_type', 'timestamp', 'tin', 'tpin', 'user_agent', 'warning']

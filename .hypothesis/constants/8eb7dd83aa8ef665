@@ -1,0 +1,4 @@
+# file: C:\Dev\01-Work\API's\app\api\endpoints\audit_logs.py
+# hypothesis_version: 6.151.6
+
+[100, 365, 400, 401, 404, 500, 1000, 10000, '/api/v1/audit-logs', '/by-action/{action}', '/by-date-range/', '/retention/cleanup', '/retention/policy', '/{audit_log_id}', 'Audit log not found', 'Not authenticated', 'action', 'audit', 'audit-logs', 'audit_log_id', 'business_id', 'created_at', 'cutoff_date', 'deleted_count', 'enabled', 'end_date', 'endpoint', 'error', 'error_message', 'id', 'ip_address', 'jobs', 'limit', 'logs', 'message', 'method', 'offset', 'request_payload', 'response_code', 'response_status', 'retention_days', 'retention_years', 'running', 'scheduled_jobs', 'scheduler_enabled', 'scheduler_running', 'start_date', 'total', 'user_agent']

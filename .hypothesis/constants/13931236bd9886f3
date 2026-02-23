@@ -1,0 +1,4 @@
+# file: C:\Dev\01-Work\API's\app\middleware\logging.py
+# hypothesis_version: 6.151.6
+
+[200, 400, 1000, '***masked***', ',', '/api/v1/health', '/api/v1/tin/validate', '/docs', '/health', '/openapi.json', '/redoc', 'API_REQUEST', 'FAILED', 'SUCCESS', 'X-Business-ID', 'application/json', 'application/xml', 'authorization', 'body', 'business_id', 'content-type', 'cookie', 'error', 'format', 'headers', 'http.request', 'ip_address', 'method', 'note', 'path', 'query_string', 'size', 'streaming_response', 'type', 'unknown', 'user-agent', 'utf-8', 'x-api-key', 'x-api-secret', 'x-api-signature', 'x-forwarded-for', 'xml']

@@ -10,6 +10,7 @@ from app.api import router
 from app.logger import get_logger
 from app.database import init_db
 from app.middleware.logging import LoggingMiddleware
+from app.middleware.body_cache import BodyCacheMiddleware
 from app.services.backup_scheduler import init_backup_scheduler, shutdown_backup_scheduler
 
 # Get logger
@@ -25,7 +26,10 @@ app = FastAPI(
     openapi_url="/api/openapi.json"
 )
 
-# Add logging middleware (should be added first to catch all requests)
+# Add body cache middleware (should be added first to cache request body)
+app.add_middleware(BodyCacheMiddleware)
+
+# Add logging middleware (should be added after body cache to catch all requests)
 app.add_middleware(LoggingMiddleware)
 
 # Add security middleware

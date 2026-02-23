@@ -1,0 +1,4 @@
+# file: C:\Dev\01-Work\API's\app\api\endpoints\vsdc.py
+# hypothesis_version: 6.151.6
+
+[0.0, 50.0, 100.0, 200, '/health-check', '/status', '/vsdc', 'A13', 'COMPANY_NAMES', 'COMPANY_SECURITY_KEY', 'COMPANY_TIN', 'D06', 'DEGRADED', 'DOWN', 'IS100', 'Invalid API key', 'SDC ID from GRA', 'SDC_ID', 'Status message', 'UP', 'Uptime percentage', 'VSDC is unavailable', 'business_id', 'company', 'error', 'error_code', 'is_cached', 'sdc_id', 'status', 'vsdc']

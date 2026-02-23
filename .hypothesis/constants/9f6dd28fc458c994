@@ -1,0 +1,4 @@
+# file: C:\Dev\01-Work\API's\app\services\task_queue.py
+# hypothesis_version: 6.151.6
+
+[1000, 'FAILED', 'TASK_FAILURE', 'UTC', 'business_id', 'error', 'error_type', 'exception', 'gra_api', 'json', 'max_retries', 'priority', 'result', 'retry_count', 'status', 'submission_id', 'task_id']

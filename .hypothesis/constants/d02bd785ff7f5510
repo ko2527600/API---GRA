@@ -1,0 +1,4 @@
+# file: C:\Dev\01-Work\API's\app\schemas\z_report.py
+# hypothesis_version: 6.151.6
+
+['-', 'Error code', 'Error message', 'Error timestamp', 'GRA response code', 'Grand total amount', 'Invalid month or day', 'Open invoices count', 'Response message', 'Response timestamp', 'Submission status', 'Total VAT amount', 'Total invoice count', 'Total levies amount', 'Unique submission ID', 'Z-Report data', 'zd_date']

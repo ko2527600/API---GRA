@@ -1,6 +1,6 @@
 """Main API router - aggregates all endpoint routes"""
 from fastapi import APIRouter
-from app.api.endpoints import api_keys, invoices, refunds, purchases, items, z_reports, webhooks, audit_logs
+from app.api.endpoints import api_keys, invoices, refunds, purchases, items, z_reports, webhooks, audit_logs, vsdc
 
 # Create main API router
 api_router = APIRouter()
@@ -14,6 +14,7 @@ api_router.include_router(items.router)
 api_router.include_router(z_reports.router)
 api_router.include_router(webhooks.router)
 api_router.include_router(audit_logs.router)
+api_router.include_router(vsdc.router)
 
 # Example placeholder
 @api_router.get("/")

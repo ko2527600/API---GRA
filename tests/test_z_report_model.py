@@ -3,7 +3,7 @@ import pytest
 from datetime import datetime
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from unittest.mock import patch
+
 
 
 def create_test_db():
@@ -14,13 +14,11 @@ def create_test_db():
     return engine, sessionmaker(bind=engine)
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_z_report_creation(mock_hash):
+def test_z_report_creation():
     """Test creating a Z-Report record"""
     from app.models.models import ZReport
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -58,14 +56,12 @@ def test_z_report_creation(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_z_report_unique_per_business_per_date(mock_hash):
+def test_z_report_unique_per_business_per_date():
     """Test report_date is unique per business"""
     from app.models.models import ZReport
     from app.services.business_service import BusinessService
     from sqlalchemy.exc import IntegrityError
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -108,13 +104,11 @@ def test_z_report_unique_per_business_per_date(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_z_report_same_date_different_businesses(mock_hash):
+def test_z_report_same_date_different_businesses():
     """Test same date can exist in different businesses"""
     from app.models.models import ZReport
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -165,13 +159,11 @@ def test_z_report_same_date_different_businesses(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_z_report_all_fields_optional_except_required(mock_hash):
+def test_z_report_all_fields_optional_except_required():
     """Test Z-Report with only required fields"""
     from app.models.models import ZReport
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -202,13 +194,11 @@ def test_z_report_all_fields_optional_except_required(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_z_report_with_gra_response_code(mock_hash):
+def test_z_report_with_gra_response_code():
     """Test Z-Report with GRA response code"""
     from app.models.models import ZReport
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -239,13 +229,11 @@ def test_z_report_with_gra_response_code(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_z_report_with_raw_response(mock_hash):
+def test_z_report_with_raw_response():
     """Test Z-Report with raw GRA response"""
     from app.models.models import ZReport
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -287,13 +275,11 @@ def test_z_report_with_raw_response(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_z_report_timestamps(mock_hash):
+def test_z_report_timestamps():
     """Test Z-Report has created_at and updated_at timestamps"""
     from app.models.models import ZReport
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -326,13 +312,11 @@ def test_z_report_timestamps(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_z_report_query_by_business(mock_hash):
+def test_z_report_query_by_business():
     """Test querying Z-Reports by business"""
     from app.models.models import ZReport
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -388,13 +372,11 @@ def test_z_report_query_by_business(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_z_report_query_by_date(mock_hash):
+def test_z_report_query_by_date():
     """Test querying Z-Report by date"""
     from app.models.models import ZReport
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -427,13 +409,11 @@ def test_z_report_query_by_date(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_z_report_update_values(mock_hash):
+def test_z_report_update_values():
     """Test updating Z-Report values"""
     from app.models.models import ZReport
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -473,13 +453,11 @@ def test_z_report_update_values(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_z_report_multiple_dates_per_business(mock_hash):
+def test_z_report_multiple_dates_per_business():
     """Test multiple Z-Reports for different dates per business"""
     from app.models.models import ZReport
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -516,13 +494,11 @@ def test_z_report_multiple_dates_per_business(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_z_report_date_format_yyyy_mm_dd(mock_hash):
+def test_z_report_date_format_yyyy_mm_dd():
     """Test Z-Report date format is YYYY-MM-DD"""
     from app.models.models import ZReport
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -553,13 +529,11 @@ def test_z_report_date_format_yyyy_mm_dd(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_z_report_numeric_fields(mock_hash):
+def test_z_report_numeric_fields():
     """Test Z-Report numeric fields"""
     from app.models.models import ZReport
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -594,13 +568,11 @@ def test_z_report_numeric_fields(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_z_report_zero_values(mock_hash):
+def test_z_report_zero_values():
     """Test Z-Report with zero values"""
     from app.models.models import ZReport
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -635,13 +607,11 @@ def test_z_report_zero_values(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_z_report_large_values(mock_hash):
+def test_z_report_large_values():
     """Test Z-Report with large numeric values"""
     from app.models.models import ZReport
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -676,13 +646,11 @@ def test_z_report_large_values(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_z_report_delete_cascade(mock_hash):
+def test_z_report_delete_cascade():
     """Test Z-Report is deleted when business is deleted"""
     from app.models.models import ZReport
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -718,13 +686,11 @@ def test_z_report_delete_cascade(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_z_report_query_by_date_range(mock_hash):
+def test_z_report_query_by_date_range():
     """Test querying Z-Reports by date range"""
     from app.models.models import ZReport
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -765,13 +731,11 @@ def test_z_report_query_by_date_range(mock_hash):
         db.close()
 
 
-@patch('app.services.api_key_service.pwd_context.hash')
-def test_z_report_partial_data(mock_hash):
+def test_z_report_partial_data():
     """Test Z-Report with partial data (some fields null)"""
     from app.models.models import ZReport
     from app.services.business_service import BusinessService
     
-    mock_hash.return_value = "hashed_secret"
     engine, SessionLocal = create_test_db()
     db = SessionLocal()
     try:
@@ -801,3 +765,4 @@ def test_z_report_partial_data(mock_hash):
         assert z_report.inv_levy is None
     finally:
         db.close()
+

@@ -1,4 +1,4 @@
-s"""Simple test to debug collection issue"""
+"""Simple test to debug collection issue"""
 import pytest
 
 

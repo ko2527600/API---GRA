@@ -20,10 +20,17 @@ class EncryptionManager:
         Raises:
             ValueError: If encryption key is invalid or too short
         """
-        key_source = encryption_key or settings.ENCRYPTION_KEY
+        if encryption_key is None:
+            key_source = settings.ENCRYPTION_KEY
+        else:
+            key_source = encryption_key
         
         if not key_source:
-            raise ValueError("ENCRYPTION_KEY must be set in configuration")
+            raise ValueError("ENCRYPTION_KEY must be set")
+        
+        # Validate key length (minimum 16 characters for security)
+        if len(key_source) < 16:
+            raise ValueError("Encryption key must be at least 16 characters long")
         
         # Derive a proper Fernet key from the provided key
         self.cipher = self._initialize_cipher(key_source)
@@ -125,3 +132,39 @@ except ValueError as e:
     logger.error(f"Failed to initialize global encryption manager: {str(e)}")
     # Create a dummy manager that will fail at runtime if used
     encryption_manager = None
+
+
+def encrypt_data(data: str) -> str:
+    """
+    Convenience function to encrypt data using the global encryption manager.
+    
+    Args:
+        data: Plain text string to encrypt
+        
+    Returns:
+        Encrypted string
+        
+    Raises:
+        ValueError: If encryption fails or manager is not initialized
+    """
+    if encryption_manager is None:
+        raise ValueError("Encryption manager not initialized")
+    return encryption_manager.encrypt(data)
+
+
+def decrypt_data(encrypted_data: str) -> str:
+    """
+    Convenience function to decrypt data using the global encryption manager.
+    
+    Args:
+        encrypted_data: Encrypted string to decrypt
+        
+    Returns:
+        Decrypted plain text string
+        
+    Raises:
+        ValueError: If decryption fails or manager is not initialized
+    """
+    if encryption_manager is None:
+        raise ValueError("Encryption manager not initialized")
+    return encryption_manager.decrypt(encrypted_data)

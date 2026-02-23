@@ -130,7 +130,7 @@ Updated task list reflecting current implementation state. Many core components 
   - _Requirements: REQ-ZREP-004, REQ-ZREP-005_
 
 #### 8.4 VSDC Health Check Endpoint (NICE-TO-HAVE)
-- [ ] Implement POST /api/v1/vsdc/health-check
+- [x] Implement POST /api/v1/vsdc/health-check
   - Submit health check request to GRA VSDC
   - Return VSDC status: UP, DOWN, DEGRADED
   - Cache status for 5 minutes
@@ -141,14 +141,14 @@ Updated task list reflecting current implementation state. Many core components 
     - Caches result for 5 minutes
     - Handles GRA unavailability gracefully
 
-- [ ]* Write tests for VSDC health check endpoint
+- [x] Write tests for VSDC health check endpoint
   - Test successful health check
   - Test caching behavior
   - Test status values (UP, DOWN, DEGRADED)
   - _Requirements: REQ-HEALTH-001, REQ-HEALTH-002, REQ-HEALTH-003_
 
 #### 8.5 VSDC Status Retrieval Endpoint (NICE-TO-HAVE)
-- [ ] Implement GET /api/v1/vsdc/status
+- [x] Implement GET /api/v1/vsdc/status
   - Retrieve cached VSDC health status
   - Return last check status and uptime metrics
   - _Requirements: REQ-HEALTH-004, REQ-HEALTH-005, REQ-HEALTH-006_
@@ -158,7 +158,7 @@ Updated task list reflecting current implementation state. Many core components 
     - Returns uptime percentage
     - Handles no cached status with appropriate response
 
-- [ ]* Write tests for VSDC status retrieval endpoint
+- [x]* Write tests for VSDC status retrieval endpoint
   - Test successful status retrieval
   - Test no cached status handling
   - Test uptime calculation
@@ -169,8 +169,10 @@ Updated task list reflecting current implementation state. Many core components 
 ### Phase 9: XML Format Support (NICE-TO-HAVE)
 **Deliverable**: Create dedicated XML submission endpoints for all operations
 
+
+ 
 #### 9.1 XML Invoice Submission
-- [ ] Implement POST /api/v1/invoices/submit (XML variant)
+- [ ] Implement POST /api/v1/invoices/submit (XML variant) 
   - Accept Content-Type: application/xml
   - Parse XML invoice format
   - Validate and submit to GRA

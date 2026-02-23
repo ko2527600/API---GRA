@@ -18,11 +18,6 @@ class TestGRAPollingService:
         """Create a test submission ID"""
         return uuid4()
     
-    @pytest.fixture
-    def business_id(self):
-        """Create a test business ID"""
-        return uuid4()
-    
     @pytest.mark.asyncio
     async def test_poll_for_response_success(self, db_session, submission_id, business_id):
         """Test successful polling for response"""

@@ -1,0 +1,4 @@
+# file: C:\Dev\01-Work\API's\app\main.py
+# hypothesis_version: 6.151.6
+
+[404, 500, '*', '/api/docs', '/api/openapi.json', '/api/redoc', '/api/v1', '/api/v1/health', '/health', '/register', '/static', '1.0.0', 'SERVER_ERROR', '__main__', 'api', 'api_name', 'app.main:app', 'components', 'database', 'environment', 'error', 'error_code', 'healthy', 'message', 'operational', 'register.html', 'shutdown', 'startup', 'static', 'status', 'text/html', 'timestamp', 'version']
